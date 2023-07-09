@@ -6,6 +6,15 @@
 </h1>
 <br><br>
 
+# ▋Features
+This bot response to every message with ChatGpt prompt (excluding commands)
++ **/Settings** command to manage your account
++ **Inline mode** to get pre-defined *Roles*
+
+
+and the best part is unlike other websites this bot saves the `Conversation-ID` and `Last message-ID` to keep remembering last conversation. so it can remember the chat. **even after 1 day!**
+<br>
+
 # ▋Clone Repository
 To get started, first you need to **clone** this repository from github into your machine:
 ```bash
