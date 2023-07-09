@@ -46,6 +46,7 @@ After getting **Token** from **BotFather** replace the Token in `utils.py` in li
 # Bot token to use
 Token = "6146793572:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk"
 ```
+> This is just an example Token. Use yours instead
 
 <br>
 
