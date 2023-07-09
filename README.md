@@ -63,7 +63,8 @@ Or in quiet mode
 ```bash
 proxychains -q python main.py
 ```
-
+To install proxychains install `proxychains-ng` and then edit the config file in `/etc/proxychains.conf`.<br>
+In config file comment the `strict_chain` and un-comment `dynamic_chain` and its ready to use.
 <br>
 
 # ▋TOR new IP address
