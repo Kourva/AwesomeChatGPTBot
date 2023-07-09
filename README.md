@@ -52,3 +52,11 @@ Or in quiet mode
 ```bash
 proxychains -q python main.py
 ```
+
+<br>
+
+# ▋TOR new IP address
+If you got any denied requests that blocked your Ip address, you can renew your IP
+```bash
+sudo killall -HUP tor
+```
