@@ -7,7 +7,7 @@ import json      # Json function
 
 
 # Bot token to use
-Token = "6146793572:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk"
+Token = "Your Token here"
 
 
 # Escape markdown filter
