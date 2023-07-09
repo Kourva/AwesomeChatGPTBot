@@ -13,6 +13,7 @@ This bot response to every message with ChatGpt prompt (excluding commands)
 
 
 and the best part is unlike other websites this bot saves the `Conversation-ID` and `Last message-ID` to keep remembering last conversation. so it can remember the chat. **even after 1 day!**
+
 <br>
 
 # ▋Clone Repository
@@ -69,3 +70,9 @@ If you got any denied requests that blocked your Ip address, you can renew your 
 ```bash
 sudo killall -HUP tor
 ```
+
+<br>
+
+# ▋Bot Inline Mode
+Don't forget to enable **Inline Mode** in your bot.<br>
+See documentation here: https://core.telegram.org/bots/api#inline-mode
