@@ -10,7 +10,7 @@
 The API used by bot is down temporary and most of alternative chats are down also.<br>
 So i updated the api and used another one that have some good and bad points!<br>
 + No Chat history and Message id (bot still can remember but IDK how it works!)
-+ Has 8 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
++ Has 6 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
 
 To use new API you need to change some functionality of bot, new function and new settings:
 + Replcae new `ChatGPT` function with old one
