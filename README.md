@@ -6,6 +6,64 @@
 </h1>
 <br><br>
 
+# ▋Attention
+The API used by bot is down temporary and most of alternative chats are down also.<br>
+So i updated the api and used another one that have some good and bad points!<br>
++ No Chat history and Message id (bot still can remember but IDK how it works!)
++ Has 8 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
+
+To use new API you need to change some functionality of bot, new function and new settings:
++ Replcae new `ChatGPT` function with old one
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+# Libraries
+import requests  # Make requests
+
+
+# MultiChat function
+def MultiChat(userid, prompt):
+    
+    # Open user account to select model
+    try:
+        with open(f"Accounts/{userid}/chat", "r") as c:
+            model = c.read().strip()
+    except FileNotFoundError:
+        model = "beaver"
+
+    # Set target api
+    target_api = "https://1.b88.asia/api/chat-process"
+    
+    # Set payload
+    data = {
+        "prompt": prompt,
+        "options": {},
+        "systemMessage": "You are ChatGPT, a large language model trained by OpenAI. Follow the user's instructions carefully. Respond using markdown.",
+        "temperature": 0.8,
+        "top_p": 1,
+        "model": model
+    }
+
+    try:
+        # Send request and decode the response
+        response = requests.post(target_api, json=data).content
+
+        # Return final answer
+        return response.decode("utf-8")
+    
+    # Except error
+    except Exception as e:
+        print(e) # Log
+
+        # Return error message
+        return "An error occurred"
+```
+**Alternativly you can use** `bot.py` **Temporary untill this issue being solved**.
+
+<br>
+
 # ▋Features
 This bot response to every message with ChatGpt prompt (excluding commands)
 + **/Settings** command to manage your account
