@@ -13,7 +13,7 @@ So i updated the api and used another one that have some good and bad points!<br
 + Has 6 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
 
 **Even if problem fixed, you can also use alternative bot!** <br>
-**To use new API you need to tun `bot.py` instead of `main.py`**
+**To use new API you need to run `bot.py` instead of `main.py`**
 ```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -60,7 +60,7 @@ def MultiChat(userid, prompt):
         # Return error message
         return "An error occurred"
 ```
-**Alternativly you can use** `bot.py` **Temporary untill this issue being solved**.
+
 
 <br>
 
