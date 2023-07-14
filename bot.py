@@ -13,6 +13,7 @@ import requests                       # Internet requests
 import json                           # Json function
 import utils                          # Bot utilities
 import os                             # OS functions
+from telebot import types, util       # TeleBot utilities
 from telebot.util import quick_markup # Markup generator
 
 
