@@ -6,12 +6,13 @@
 </h1>
 <br><br>
 
-# ▋Attention
+# ▋Attention (Fixed)
 The API used by bot is down temporary and most of alternative chats are down also.<br>
 So i updated the api and used another one that have some good and bad points!<br>
 + No Chat history and Message id (bot still can remember but IDK how it works!)
 + Has 6 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
 
+**Problem fixed but you can also use alternative bot!** <br>
 **To use new API you need to tun `bot.py` instead of `main.py`**
 ```python
 #!/usr/bin/env python3
