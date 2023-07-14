@@ -12,8 +12,7 @@ So i updated the api and used another one that have some good and bad points!<br
 + No Chat history and Message id (bot still can remember but IDK how it works!)
 + Has 6 models **GPT3**, **GPT4**, **Sage**, **Claude** ...
 
-To use new API you need to change some functionality of bot, new function and new settings:
-+ Replcae new `ChatGPT` function with old one
+**To use new API you need to tun `bot.py` instead of `main.py`**
 ```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
