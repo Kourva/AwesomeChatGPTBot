@@ -1,14 +1,10 @@
-# Utils file for ChatGpt bot
-
-
-# Libraries
-import requests  # Make requests
-import json      # Json function
-
+# Resources
+import requests
+import json
+import os
 
 # Bot token to use
-Token = "Your Token here"
-
+Token = "Your Bot Token"
 
 # Escape markdown filter
 def escape_markdown(string: str) -> str:
@@ -32,9 +28,8 @@ def escape_markdown(string: str) -> str:
         .replace(".", "\.").replace("!", "\!").replace(",", "\,")
     )
 
-
 # Force private chat
-def force_private(message: object) -> bool:
+def force_private(message: callable) -> bool:
     """
     Function to force chat into private chat
 
@@ -53,85 +48,90 @@ def force_private(message: object) -> bool:
 
 
 # Chat GPT function
-def ChatGPT_Function(chatid: str, string: str) -> str:
+def ChatGPT_Function(user_id: int, prompt: str) -> str:
     """
-    Function to fetch message for chat GPT
-    Send ChatGPT answer back to user
+    Chat GPT function
 
     Parameters:
-        chatid for user chat id
-        string for prompt
+        User id - int
+        Prompt  - str
 
     Returns:
-        String of chatGPT's answer / Error message
+        GPT response - str
     """
 
-    # Error handling
     try:
+        # Make sure user have account, even if it not started bot.
+        folder_path = f"Accounts/{user_id}" 
+        file_path = f"Accounts/{user_id}/history.json"
 
-        # Base URL and Parameters for request
-        url = "http://g01.plitun.com/api/chat-process"
-        
-        # Check if chat available or its new user
-        with open(f"Accounts/{chatid}/chatgpt", "r") as d:
-            
-            # Start new chat if user don't have account (Or renewed it)
-            if (dt:=d.read()) == "":
-                data = {
-                    "prompt": string,
-                }
+        if not os.path.exists(folder_path):
+            os.mkdir(folder_path)
 
-            # Else send previous message ID to API endpoint
-            # This causes chatGPT remember last conversation
-            else:
+        if not os.path.exists(file_path):
+            with open(file_path, 'w') as file:
+                json.dump([], file)
 
-                # Create post payload
-                datas = dt.split("@")
-                chat_id = datas[0].strip()
-                mseg_id = datas[1].strip()
-                data = {
-                    "prompt": string,
-                    "options": {
-                        "conversationId": chat_id,
-                        "parentMessageId": mseg_id
-                    }
-                }
+        # Read history and add user role to history
+        with open(file_path, 'r') as file:
+            history = json.load(file)
+            history.append({
+                "role": "user",
+                "content": prompt
+            })
 
-        # Create header accept type
+
+        # Request URL
+        url = "https://ai.fakeopen.com/v1/chat/completions"
+
+        # Authorization
         headers = {
-            "Accept": "application/json"
+            "Authorization": "Bearer pk-this-is-a-real-free-pool-token-for-everyone"
         }
 
-        # Make request and decode result from base64
-        result = requests.post(url, json=data, headers=headers)
-        string = result.content.decode("utf-8")
+        # Post data
+        data = {
+            "frequency_penalty": 0, 
+            "messages": history, 
+            "model": "gpt-3.5-turbo", 
+            "presence_penalty": 0, 
+            "stream": True, 
+            "temperature": 0.5, 
+            "top_p": 0.5
+        }
 
-        # Fetch conversions and process last one (step conversations)
-        # Like this:
-        # Conv1 : Hi
-        # Conv2 : Hi!
-        # Conv3 : Hi! How
-        # Conv4 : hi! How can
-        # and so on ...
-        conversation = [json.loads(line) for line in string.split('\n') if line.strip()]
-        
-        # Fetch data from decoded result
-        bot_answer = conversation[-1]['text']
-        new_chat_id = conversation[-1]['conversationId']
-        new_mseg_id = conversation[-1]['id']
+        # Make request and get response
+        res = requests.post(
+            url=url, 
+            json=data, 
+            headers=headers, 
+            timeout=5
+        ).text
 
-        # Save message data to user config file
-        with open(f"Accounts/{chatid}/chatgpt", "w") as d:
-            d.write(f"{new_chat_id}@{new_mseg_id}")
+        gpt_result = ""
+        for chuck in res.strip().split("\n\n")[:-1]:
+            temp = json.loads(chuck.split("data: ")[1])
+            try:
+                gpt_result += temp['choices'][0]['delta']["content"]
+            except:
+                pass
+
+        # Add GPT prompt to history
+        history.append({
+            "role": "assistant",
+            "content": gpt_result
+        })
+
+        # Save new history
+        with open(file_path, 'w') as file:
+            json.dump(history, file, indent=4)
 
         # Return chat answer
-        return bot_answer
+        return gpt_result
 
-    # If program faced any error...
-    except:
-
-        # Send error message
-        return "That's and error! Try again."
+    # Handle errors
+    except Exception as ex:
+        return f"Error due to {ex}"
 
 
 # ChatGPT's Role Prompts used in inline mode
