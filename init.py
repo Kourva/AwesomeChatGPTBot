@@ -26,6 +26,10 @@ GPTbot.set_my_commands(
         types.BotCommand(
             command="reset",
             description="Reset you chat history"
+        ),
+        types.BotCommand(
+            command="danmode",
+            description="Enable/Disable DAN mode v 10.0"
         )
     ]
 )
