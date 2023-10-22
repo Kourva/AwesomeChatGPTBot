@@ -1,9 +1,9 @@
-<h1 align="center">
+<p align="center">
     <img align='left' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
     <h2>Free Chat GPT Telegram Bot </h2>
   <p><i>Free ChatGPT-3.5 Telegram Bot with option to remenber chat history and pre-defined roles!</i></p>
   <p><i>Without any <b>API-key</b> from OpenAI and other stuff <b>+</b> Inline bot</i></p>
-</h1>
+</p>
 <br><br>
 
 # ▋Attention
@@ -11,7 +11,8 @@ Bot has been updated and works fine
 + history section added
 + **/history** to get history file in json format
 + **/reset** to reset the chat history
-> Soon, i will add dan mode to bot to start `DAN` mode without loosing it (bot will stay in DAN mode always)
++ **/danmode** to enable/disable DAN mode v10.0 in bot
+> Note: History will reset when using /danmode command!!
 
 
 
