@@ -14,14 +14,25 @@ Bot has been updated and works fine
 + **/danmode** to enable/disable DAN mode v10.0 in bot
 > Note: History will reset when using /danmode command!!
 
+<br>
 
+# ▋Common Issue: Empty API Responses
+### Problem Description
+The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send user '[Empty Result]' instead of raising error from Telegram!
+This issue is caused by problems with the external API (Maybe IP limitation or bot chanllenges).
+
+### Solutions
+For now, simple solution is to resend your prompt and ask your question again.
+
+### Contributions
+I welcome contributions. If you've found a reliable solution to this issue or have other useful suggestions, please consider contributing to this project.
 
 <br>
 
 # ▋Features
-This bot response to every message with ChatGpt prompt (excluding commands)
-+ **Inline mode** to get pre-defined *Roles*
-+ Can remember history
+This bot responds to every message with ChatGPT AI, excluding commands.
++ Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3)
++ The ability to remember chat history.
 
 <br>
 
