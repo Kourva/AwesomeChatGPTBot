@@ -18,7 +18,7 @@ Bot has been updated and works fine
 
 # ▋Common Issue: Empty API Responses
 ### Problem Description
-The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send user '[Empty Result]' instead of raising error from Telegram! <br>
+The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `[Empty Result]` to the user instead of raising error from Telegram! <br>
 This issue is caused by problems with the external API (Maybe IP limitation or bot chanllenges).
 
 ### Solutions
