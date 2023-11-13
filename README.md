@@ -86,7 +86,7 @@ This will install **pyTelegamBotAPI** and **Requests** for you
 
 <br>
 
-# ▋Config your token
+# ▋Configure your token
 Now you have to get create bot from [BotFather](https://t.me/BotFather) **(If you don't have)** and take your **Token** to starts working with your bot.<br>
 After getting **Token** from **BotFather** replace the Token in `utils.py` in line **7** as follows:
 ```python
