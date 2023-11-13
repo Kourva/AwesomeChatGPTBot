@@ -8,11 +8,11 @@
 
 # ▋Change Log
 Here are the latest additions:
-1. **PEP8 fixes:** Fixed some PEP8 issues.<br>
-2. **Extra commands:** Added `help`, `features` and `chat` commands.<br>
-3. **MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
-4. **History management**: Added utilities to check history and fix it when it got broken.<br>
-5. **Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+1. **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
+2. **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
+3. **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
+4. **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
+5. **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
 ```
 /chat hi
 ```
