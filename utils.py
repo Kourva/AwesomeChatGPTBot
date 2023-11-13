@@ -11,7 +11,7 @@ import re
 import requests
 
 # Telegram bot's token
-TOKEN: str = "6516187982:AAE3Y-U4wmMpzZW8ccMLfQC5kHjnRUVvsnU"
+TOKEN: str = "Your Token Here"
 
 
 def smart_escape(string: str) -> str:
