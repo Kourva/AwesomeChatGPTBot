@@ -19,6 +19,8 @@ Here are the latest additions:
 ```
 > This will avoid mess in replies and even reactions to bot's responses
 
+<br>
+
 # ▋Upcoming Features
 1. **Smart reply**: Reply to user's message to process them with GPT.<br>
 2. **Code Generator**: Use code generator to generate functions in many languages.<br>
@@ -36,7 +38,7 @@ Here are the latest additions:
 <br>
 
 # ▋Bot is Down? Not working?
-check https://status.fakeopen.com for more information
+Visit https://status.fakeopen.com for more information about external API
 
 <br>
 
@@ -132,3 +134,8 @@ sudo killall -HUP tor
 # ▋Bot Inline Mode
 Don't forget to enable **Inline Mode** in your bot.<br>
 See documentation here: https://core.telegram.org/bots/api#inline-mode
+
+<br>
+
+# ▋Thanks a bunch for starring the project! :star:
+If you have any suggestions or feedback, feel free to share. I appreciate your interest and contribution to the project!
