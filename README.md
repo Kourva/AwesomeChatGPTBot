@@ -12,7 +12,8 @@ Here are the latest additions:
 2. **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
 3. **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
 4. **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
-5. **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+5. **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
+6. **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
 ```
 /chat hi
 ```
@@ -34,13 +35,19 @@ Here are the latest additions:
 
 <br>
 
+# ▋Bot is Down? Not working?
+check https://status.fakeopen.com for more information
+
+<br>
+
 # ▋Common Issue: Empty API Responses
 ### Problem Description
-The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `[Empty Result]` to the user instead of raising error from Telegram! <br>
+The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `Error! Please ask again.` to the user instead of raising error from Telegram! <br>
 This issue is caused by problems with the external API (Maybe IP limitation or bot chanllenges).
 
 ### Solutions
 For now, simple solution is to resend your prompt and ask your question again.
++ [Nov 13, 2023]: Not fixed but you can re-generate your prompt with inline button.
 
 ### Contributions
 I welcome contributions. If you've found a reliable solution to this issue or have other useful suggestions, please consider contributing to this project.
