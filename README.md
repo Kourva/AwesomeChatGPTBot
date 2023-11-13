@@ -6,12 +6,30 @@
 </p>
 <br><br>
 
-# ▋Attention
-Bot has been updated and works fine
-+ history section added
-+ **/history** to get history file in json format
-+ **/reset** to reset the chat history
-+ **/danmode** to enable/disable DAN mode v10.0 in bot
+# ▋Change Log
+Here are the latest additions:
+1. **PEP8 fixes:** Fixed some PEP8 issues.<br>
+2. **Extra commands:** Added `help`, `features` and `chat` commands.<br>
+3. **MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
+4. **History management**: Added utilities to check history and fix it when it got broken.<br>
+5. **Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+```
+/chat hi
+```
+> This will avoid mess in replies and even reactions to bot's responses
+
+# ▋Upcoming Features
+1. **Smart reply**: Reply to user's message to process them with GPT.<br>
+2. **Code Generator**: Use code generator to generate functions in many languages.<br>
+3. **Image generator**: Use AI to generate images from prompt.
+
+<br>
+
+# ▋Old Changes
+> + history section added
+> + **/history** to get history file in json format
+> + **/reset** to reset the chat history
+> + **/danmode** to enable/disable DAN mode v10.0 in bot
 > Note: History will reset when using /danmode command!!
 
 <br>
