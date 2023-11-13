@@ -56,8 +56,8 @@ I welcome contributions. If you've found a reliable solution to this issue or ha
 
 # ▋Features
 This bot responds to every message with ChatGPT AI, excluding commands.
-+ Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3)
-+ The ability to remember chat history.
++ Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3#issuecomment-1791705893)
++ The ability to remember chat history (long-term memory).
 
 <br>
 
