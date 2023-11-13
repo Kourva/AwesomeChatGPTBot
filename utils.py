@@ -1,121 +1,158 @@
-# Resources
-import requests
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Standard library imports
+from typing import Any, Dict, List, Optional
 import json
 import os
+import re
 
-# Bot token to use
-Token = "Your Bot Token"
+# Related third party imports
+import requests
 
-# Escape markdown filter
-def escape_markdown(string: str) -> str:
+# Telegram bot's token
+TOKEN: str = "6516187982:AAE3Y-U4wmMpzZW8ccMLfQC5kHjnRUVvsnU"
+
+
+def smart_escape(string: str) -> str:
     """
-    Function to escape markdown syntax
+    Smart converter to convert Markdown to Telegram's MakrdownV2
+    and also escape other characters.
     
-    Parameter:
-        String to be escaped
-    
-    Returns:
-        Filtered string
-    """
-
-    # Return escaped string
-    return (
-        string.replace("_", "\_").replace("*", "\*").replace("[", "\[")
-        .replace("]", "\]").replace("(", "\(").replace(")", "\)")
-        .replace("~", "\~").replace(">", "\>").replace("#", "\#")
-        .replace("+", "\+").replace("-", "\-").replace("=", "\=")
-        .replace("|", "\|").replace("{", "\{").replace("}", "\}")
-        .replace(".", "\.").replace("!", "\!").replace(",", "\,")
-    )
-
-# Force private chat
-def force_private(message: callable) -> bool:
-    """
-    Function to force chat into private chat
-
-    Parameter:
-        Message object
-
-    Returns:
-        Boolean value
-    """
-
-    # Return Boolean statement
-    if message.chat.type == "private":
-        return True
-    
-    return False
-
-
-# Chat GPT function
-def ChatGPT_Function(user_id: int, prompt: str) -> str:
-    """
-    Chat GPT function
+    The smart section is that this functions split code blocks and
+    add them later, after escaping other sections, so codes and stuff
+    in code blocks wont be escaped.
 
     Parameters:
-        User id - int
-        Prompt  - str
+        string (str): string to be escaped  # required
 
     Returns:
-        GPT response - str
+        string (str): escaped string
     """
+    # Skip empty character
+    if not string:
+        return ""
+
+    # Character set to be escaped
+    escape_chars: List[str] = [
+        ".", "[", "]", "(", "!",
+        ")", "~" , ">", "#", "*"
+        "+", "-", "=", "|", "{",
+        "}", "_", 
+    ]
+    # Making backup for string
+    temp: str = string
 
     try:
+        # Replace code blocks if exist with placeholder
+        if (code_blocks:= re.findall(r"```[\s\S]+?```", string)):
+            for block in code_blocks :
+                string = string.replace(block, "CodePlaceholder")
+
+        # Markdown v2 for bold, italic
+        string = re.sub(r"\*\*\s*(\w+(\s*\w+)*)\s*\*\*", r"::BOLD\1BOLD::", string)
+        string = re.sub(r"\_\_\s*(\w+(\s*\w+)*)\s*\_\_", r"::BOLD\1BOLD::", string)
+        string = re.sub(r"\*\s*(\w+(\s*\w+)*)\s*\*", r"::ITALIC\1ITALIC::", string)
+        string = re.sub(r"\_\s*(\w+(\s*\w+)*)\s*\_", r"::ITALIC\1ITALIC::", string)
+
+        
+        for char in escape_chars:
+            string = string.replace(char, '\\' + char)
+
+        string = string.replace("::BOLD", "*").replace("BOLD::", "*")
+        string = string.replace("::ITALIC", "_").replace("ITALIC::", "_")
+
+        # Restore the code blocks
+        if code_blocks:
+            for i, block in enumerate(code_blocks):
+                string = string.replace("CodePlaceholder", code_blocks[i], 1)
+
+        return string
+
+    # Only escape characters if any error happened 
+    except:
+        for char in escape_chars:
+            temp = temp.replace(char, "\\" + char)
+        return temp
+
+
+def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> str:
+    """
+    Chat GPT function, from fakeopen AI
+
+    Parameters:
+        UserID (int): unique identity of user in chat                   # required
+        Prompt (str): user prompt message                               # required
+        Stream (bool): whether prompt is being added to history or not  # optional
+
+    Returns:
+        string (str): chat GPT's response or Error message
+    """
+    try:
         # Make sure user have account, even if it not started bot.
-        folder_path = f"Accounts/{user_id}" 
-        file_path = f"Accounts/{user_id}/history.json"
+        folder_path: str = f"Accounts/{user_id}" 
+        file_path: str = f"{folder_path}/history.json"
 
         if not os.path.exists(folder_path):
             os.mkdir(folder_path)
 
         if not os.path.exists(file_path):
-            with open(file_path, 'w') as file:
+            with open(file_path, "w") as file:
                 json.dump([], file)
 
         # Read history and add user role to history
-        with open(file_path, 'r') as file:
-            history = json.load(file)
-            history.append({
-                "role": "user",
-                "content": prompt
-            })
+        with open(file_path, "r") as file:
+            history: List[Dict[str]] = json.load(file)
 
+            # If history is empty or consists only of system messages, make stream false
+            if not history or any(item.get("role") == "system" for item in history):
+                stream = False
 
-        # Request URL
-        url = "https://ai.fakeopen.com/v1/chat/completions"
+            # Add user's new prompt to history if its not in stream mode
+            if stream and history[-1]["role"] == "assistant":
+                del history[-1]
+            else:
+                history.append({
+                    "role": "user", 
+                    "content": prompt
+                })
 
-        # Authorization
-        headers = {
-            "Authorization": "Bearer pk-this-is-a-real-free-pool-token-for-everyone"
-        }
-
-        # Post data
-        data = {
+        # Request URL and Authorization and Data
+        url: str = "https://ai.fakeopen.com/v1/chat/completions"
+        data: Dict[str, int] = {
             "frequency_penalty": 0, 
             "messages": history, 
             "model": "gpt-3.5-turbo", 
             "presence_penalty": 0, 
             "stream": True, 
-            "temperature": 0.5, 
+            "temperature": 0.5,
             "top_p": 0.5
+        }
+        headers: Dict[str] = {
+            "Authorization": "Bearer pk-this-is-a-real-free-pool-token-for-everyone"
         }
 
         # Make request and get response
-        res = requests.post(
-            url=url, 
+        res: str = requests.post(
+            url=url,
             json=data, 
             headers=headers, 
             timeout=5
         ).text
 
-        gpt_result = ""
+        gpt_result: str = ""
         for chuck in res.strip().split("\n\n")[:-1]:
-            temp = json.loads(chuck.split("data: ")[1])
+            temp: Dict[Any] = json.loads(chuck.split("data: ")[1])
             try:
-                gpt_result += temp['choices'][0]['delta']["content"]
+                gpt_result += temp["choices"][0]["delta"]["content"]
             except:
                 pass
 
+        # Fix history and return error message if result is empty
+        if gpt_result == "":
+            del history[-1]
+            return False
+       
         # Add GPT prompt to history
         history.append({
             "role": "assistant",
@@ -123,19 +160,63 @@ def ChatGPT_Function(user_id: int, prompt: str) -> str:
         })
 
         # Save new history
-        with open(file_path, 'w') as file:
+        with open(file_path, "w") as file:
             json.dump(history, file, indent=4)
 
         # Return chat answer
         return gpt_result
 
     # Handle errors
-    except Exception as ex:
-        return f"Error due to {ex}"
+    except Exception as error:
+        # Remove broken pair
+        if history[-1]["role"] == "user":
+            del history[-1]
+
+        if "HTTPSConnectionPool" in str(error):
+            return "[!] **Connection timed out**."
+
+        return f"[!] **Unknown Issue**!\n\nLog:\n```\n{error}\n```"
+
+
+def last_question(user_id: int, operand: bool, question: Optional[str] = "") -> str:
+    """
+    Function to set/get last question for user, so if any error
+    happened, users can re-ask their last question using inline
+    button.
+
+    Parameters:
+        user_id (int): unique identity of user in chat      # required
+        operand (bool): True for 'set' or False for 'get'   # required
+        question (str): last question for user to be set    # optional
+
+    Returns:
+        question (str): last question the use asked
+    """
+    # Make sure user have account, even if it not started bot.
+    folder_path : str= f"Accounts/{user_id}" 
+    file_path: str = f"{folder_path}/history.json"
+    question_path: str = f"{folder_path}/last_question"
+    
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+
+        if not os.path.exists(file_path):
+            with open(file_path, "w") as file, open (question_path, "w") as file2:
+                json.dump([], file)
+
+    # Set question
+    if operand:
+        with open(question_path, "w") as file:
+            file.write(question)
+
+    # Get question
+    else:
+        with open(question_path, "r") as file:
+            return file.read()
 
 
 # ChatGPT's Role Prompts used in inline mode
-GPT_Prompts = {
+GPT_PROMPTS: Dict[str, Any] = {
     "Linux Terminal": """I want you to act as a linux terminal. I will type commands and you will reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. do not write explanations. do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}. My first command is pwd""",
     "JavaScript Console": """I want you to act as a javascript console. I will type commands and you will reply with what the javascript console should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. do not write explanations. do not type commands unless I instruct you to do so. when I need to tell you something in english, I will do so by putting text inside curly brackets {like this}. My first command is console.log("Hello World");""",
     "Excel Sheet": """I want you to act as a text based excel. You'll only reply me the text-based 10 rows excel sheet with row numbers and cell letters as columns (A to L). First column header should be empty to reference row number. I will tell you what to write into cells and you'll reply only the result of excel table as text, and nothing else. Do not write explanations. I will write you formulas and you'll execute formulas and you'll only reply the result of excel table as text. First, reply me the empty sheet.""",
