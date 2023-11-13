@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import utils
+# Standard library imports
+from typing import Any, ClassVar
+
+# Related third party imports
+from telebot import types, util
 import telebot
 import requests
-from telebot import types, util
+
+# Local application/library specific imports
+import utils
 
 # Connect to bot
 # Token placed in utils.py file. You can change it with your token
-GPTbot = telebot.TeleBot(utils.Token)
+GPTbot: ClassVar[Any] = telebot.TeleBot(utils.TOKEN)
 print(f"The Bot is online (id: {GPTbot.get_me().id}) \33[0;31m[DEVELOPER MODE]\33[m...")
 
 # Set bot commands
@@ -18,6 +24,14 @@ GPTbot.set_my_commands(
         types.BotCommand(
             command="start",
             description="Start the bot"
+        ),
+        types.BotCommand(
+            command="help",
+            description="Show help message"
+        ),
+        types.BotCommand(
+            command="chat",
+            description="Chat in groups using this command"
         ),
         types.BotCommand(
             command="history",
@@ -30,6 +44,10 @@ GPTbot.set_my_commands(
         types.BotCommand(
             command="danmode",
             description="Enable/Disable DAN mode v 10.0"
+        ),
+        types.BotCommand(
+            command="features",
+            description="See features changes"
         )
     ]
 )
