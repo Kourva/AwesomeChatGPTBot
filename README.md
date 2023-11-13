@@ -97,12 +97,19 @@ Token = "6146793572:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk"
 
 <br>
 
-# ▋Configure the bot commands
+# ▋Configure the bot commands (Optional)
 you can set your bot's commands manually or using 'init.py' script
 ```bash
 python init.py
 ```
-> This will set up `/history`, `/start` and `/reset` commands in bot
+> This will set up these commands in bot's menu
+> + `/start`
+> + `/help`
+> + `/chat`
+> + `/features`
+> + `/history`
+> + `/reset`
+> + `/danmode`
 
 <br>
 
