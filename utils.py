@@ -50,17 +50,16 @@ def smart_escape(string: str) -> str:
                 string = string.replace(block, "CodePlaceholder")
 
         # Markdown v2 for bold, italic
-        string = re.sub(r"\*\*\s*(\w+(\s*\w+)*)\s*\*\*", r"::BOLD\1BOLD::", string)
-        string = re.sub(r"\_\_\s*(\w+(\s*\w+)*)\s*\_\_", r"::BOLD\1BOLD::", string)
-        string = re.sub(r"\*\s*(\w+(\s*\w+)*)\s*\*", r"::ITALIC\1ITALIC::", string)
-        string = re.sub(r"\_\s*(\w+(\s*\w+)*)\s*\_", r"::ITALIC\1ITALIC::", string)
-
+        #string = re.sub(r"\*\*\s*(\w+(\s*\w+)*)\s*\*\*", r"::BOLD\1BOLD::", string)
+        #string = re.sub(r"\_\_\s*(\w+(\s*\w+)*)\s*\_\_", r"::BOLD\1BOLD::", string)
+        #string = re.sub(r"\*\s*(\w+(\s*\w+)*)\s*\*", r"::ITALIC\1ITALIC::", string)
+        #string = re.sub(r"\_\s*(\w+(\s*\w+)*)\s*\_", r"::ITALIC\1ITALIC::", string)
         
         for char in escape_chars:
             string = string.replace(char, '\\' + char)
 
-        string = string.replace("::BOLD", "*").replace("BOLD::", "*")
-        string = string.replace("::ITALIC", "_").replace("ITALIC::", "_")
+        #string = string.replace("::BOLD", "*").replace("BOLD::", "*")
+        #string = string.replace("::ITALIC", "_").replace("ITALIC::", "_")
 
         # Restore the code blocks
         if code_blocks:
