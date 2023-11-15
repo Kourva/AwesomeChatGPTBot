@@ -172,7 +172,7 @@ def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
 
         GPTbot.reply_to(
             message=message,
-            text=utils.smart_escape("DAN mode **Disabled**. _version 10.0!_"),
+            text=utils.smart_escape("DAN mode _version 10.0!_\nStatus: Disabled"),
             parse_mode="MarkdownV2"
         )
     else:
@@ -185,7 +185,7 @@ def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
         ]
         GPTbot.reply_to(
             message=message,
-            text="DAN mode *Enabled*\. _version 10\.0\!_",
+            text=utils.smart_escape("DAN mode _version 10.0!_\nStatus: Enabled"),
             parse_mode="MarkdownV2"
         )
         with open(file_path, "w") as file:
@@ -209,22 +209,22 @@ def help_command_handler(message: ClassVar[Any]) -> NoReturn:
     GPTbot.reply_to(
         message=message,
         text=utils.smart_escape(
-            f"**List of global commands**:\n"
-            f"**1**. /start: Start bot\n"
-            f"**2**. /help: Show this message\n\n"
-            f"**List of chat related commands**:\n"
-            f"**1**. /reset: Reset chat history\n"
-            f"**2**. /history: Get chat history\n"
-            f"**3**. /chat: Chat in groups\n"
-            f"**4**. /danmode: Use DAN mode in GPT\n\n"
-            f"**Other commands**:\n"
-            f"**1**. /feature: See feature changes\n\n"
-            f"**Uptime**:\n"
+            f"List of global commands:\n"
+            f"1. /start: Start bot\n"
+            f"2. /help: Show this message\n\n"
+            f"List of chat related commands:\n"
+            f"1. /reset: Reset chat history\n"
+            f"2. /history: Get chat history\n"
+            f"3. /chat: Chat in groups\n"
+            f"4. /danmode: Use DAN mode in GPT\n\n"
+            f"Other commands:\n"
+            f"1. /feature: See feature changes\n\n"
+            f"Uptime:\n"
             f"visit https://status.fakeopen.com to check status for bot.\n\n"
-            f"**Inline usage**:\n"
+            f"Inline usage:\n"
             f"```\n@{GPTbot.get_me().username} roles```\n"
             f"this will show all available roles.\n\n"
-            f"**Chat command usage**:\n"
+            f"Chat command usage:\n"
             f"```\n/chat hello world!```"
         ),
         parse_mode="MarkdownV2"
@@ -248,18 +248,18 @@ def feature_command_handler(message: ClassVar[Any]) -> NoReturn:
     GPTbot.reply_to(
         message=message,
         text=utils.smart_escape(
-            f"**Main features**:\n"
-            f"**1**. Includes long-term memory\n"
-            f"**2**. Includes roles and DAN mode\n"
-            f"**3**. Supports both group and private chat\n"
-            f"**4**. Includes re-generate option\n\n"
-            f"**Other features**:\n"
-            f"**1**. Markdown V2 converter\n"
-            f"**2**. History checker and fixer\n\n"
-            f"**Upcoming Features**:\n"
-            f"**1**. Smart reply option\n"
-            f"**2**. Code generator\n"
-            f"**3**. Image generator\n\n"
+            f"Main features:\n"
+            f"1. Includes long-term memory\n"
+            f"2. Includes roles and DAN mode\n"
+            f"3. Supports both group and private chat\n"
+            f"4. Includes re-generate option\n\n"
+            f"Other features:\n"
+            f"1. Markdown V2 converter\n"
+            f"2. History checker and fixer\n\n"
+            f"Upcoming Features:\n"
+            f"1. Smart reply option\n"
+            f"2. Code generator\n"
+            f"3. Image generator\n\n"
             f"Please submit your Issue or Request in here:\n"
             f"https://github.com/Kourva/AwesomeChatGPTBot/issues"
         ),
@@ -289,7 +289,9 @@ def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
             GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
             GPTbot.reply_to(
                 message=message,
-                text=utils.smart_escape("**Please Ask your question after** /chat\n\n**Example**: /chat hi"),
+                text=utils.smart_escape(
+                    "Please Ask your question after /chat\n\nExample: /chat hi"
+                ),
                 parse_mode="MarkdownV2"
             )
             return
@@ -298,7 +300,7 @@ def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
         GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
         gpt_prompt = GPTbot.reply_to(
             message=message,
-            text=utils.smart_escape("**Processing with a smile**..."),
+            text=utils.smart_escape("Processing with a smile..."),
             parse_mode="MarkdownV2"
         )
 
@@ -394,7 +396,7 @@ def handle_private_messages(message: callable) -> None:
     GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
     gpt_prompt = GPTbot.reply_to(
         message=message,
-        text=utils.smart_escape("**Processing with a smile**..."),
+        text=utils.smart_escape("Processing with a smile..."),
         parse_mode="MarkdownV2"
     )
 
@@ -410,6 +412,8 @@ def handle_private_messages(message: callable) -> None:
 
     # Update user's last question
     utils.last_question(user_id, True, user_prompt)
+
+    print(result)
 
     # Answer user message
     GPTbot.edit_message_text(
@@ -433,7 +437,7 @@ def callback_handler(call: callable) -> None:
     GPTbot.edit_message_text(
         chat_id=chat_id,
         message_id=message_id,
-        text=utils.smart_escape("**Processing with a smile**..."),
+        text=utils.smart_escape("Processing with a smile..."),
         parse_mode="MarkdownV2",
         reply_markup=None
     )
