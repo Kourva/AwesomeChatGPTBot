@@ -413,8 +413,6 @@ def handle_private_messages(message: callable) -> None:
     # Update user's last question
     utils.last_question(user_id, True, user_prompt)
 
-    print(result)
-
     # Answer user message
     GPTbot.edit_message_text(
         chat_id=message.chat.id,
