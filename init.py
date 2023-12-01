@@ -15,7 +15,7 @@ import utils
 # Connect to bot
 # Token placed in utils.py file. You can change it with your token
 GPTbot: ClassVar[Any] = telebot.TeleBot(utils.TOKEN)
-print(f"The Bot is online (id: {GPTbot.get_me().id}) \33[0;31m[DEVELOPER MODE]\33[m...")
+print(f"The Bot is online (id: {GPTbot.get_me().id}) \33[0;31m[Initial MODE]\33[m...")
 
 # Set bot commands
 print("[!] Configuring bot commands...")
@@ -28,6 +28,10 @@ GPTbot.set_my_commands(
         types.BotCommand(
             command="help",
             description="Show help message"
+        ),
+        types.BotCommand(
+            command="setting",
+            description="ChatGPT setting"
         ),
         types.BotCommand(
             command="chat",
