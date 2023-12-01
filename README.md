@@ -7,13 +7,19 @@
 <br><br>
 
 # ▋Change Log
-Here are the latest additions:
-1. **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
-2. **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
-3. **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
-4. **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
-5. **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
-6. **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+It seems that server used for this chatGPT has some issues:
+
+Here are the latest additions:<br>
+**[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
+**[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
+**[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
+**[Dec 01, 2023] Error handling:** Added more handlers and depp link handlers.<br> 
+> **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
+> **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
+> **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
+> **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
+> **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
+> **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
 ```
 /chat hi
 ```
@@ -44,8 +50,20 @@ Visit https://status.fakeopen.com for more information about external API
 
 # ▋Common Issue: Empty API Responses
 ### Problem Description
-The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `Error! Please ask again.` to the user instead of raising error from Telegram! <br>
+The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `Error! ChatGPT is not responding at this time!` to the user instead of raising error from Telegram! <br>
 This issue is caused by problems with the external API (Maybe IP limitation or bot chanllenges).
+This is latest response from bot:
+```json
+{
+    "error": {
+        "message": "It is recommended to upgrade to the latest PandoraNext: https://github.com/pandora-next/deploy",
+        "type": "invalid_request_error",
+        "param": null,
+        "code": null
+    }
+}
+```
+I'll wait for problem to solve and if not, I will change the request endpoints and find new one.
 
 ### Solutions
 For now, simple solution is to resend your prompt and ask your question again.
