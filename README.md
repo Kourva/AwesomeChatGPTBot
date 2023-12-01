@@ -8,7 +8,7 @@
 
 # ▋Change Log
 It seems that server used for this chatGPT has some issues.<br>
-Check out [Here](https://github.com/Kourva/AwesomeChatGPTBot/blob/main/README.md#common-issue-empty-api-responses) for more details
+Check out [Here](#common-issue-empty-api-responses) for more details
 
 Here are the latest additions:<br>
 **[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
