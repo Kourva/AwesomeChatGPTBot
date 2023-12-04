@@ -124,6 +124,7 @@ python init.py
 > This will set up these commands in bot's menu
 > + `/start`
 > + `/help`
+> + `/setting`
 > + `/chat`
 > + `/features`
 > + `/history`
