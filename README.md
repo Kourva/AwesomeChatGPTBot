@@ -10,7 +10,8 @@
 [**Last Status**]: Bot updated and works fine!<br>
 > ~~It seems that server used for this chatGPT has some issues~~ [Solved].<br>
 > Check out [here](#common-issue-empty-api-responses) for more details and common issues.<br>
-See more logs [here](#Full-Change-Log)
+
+See more logs [here](#full-change-log)
 
 
 <br>
@@ -161,18 +162,18 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 **[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
 **[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
 **[Dec 01, 2023] Error handling:** Added more handlers and depp link handlers.<br> 
-> **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
-> **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
-> **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
-> **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
-> **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
-> **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+**[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
+**[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
+**[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
+**[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
+**[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
+**[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
 ```
 /chat hi
 ```
-> This will avoid mess in replies and even reactions to bot's responses
-> + history section added
-> + **/history** to get history file in json format
-> + **/reset** to reset the chat history
-> + **/danmode** to enable/disable DAN mode v10.0 in bot
+> This will avoid mess in replies and even reactions to bot's responses.
+
+**[Nov 01, 2023] History command:** Added history section added (use /history to get history file)<br>
+**[Nov 01, 2023] History reset:** Added /reset command to reset the chat history.<br>
+**[Nov 01, 2023] Dan mode v10:** Added /danmode** command to enable/disable DAN mode v10.0 in bot.<br>
 > Note: History will reset when using /danmode command!!
