@@ -7,24 +7,11 @@
 <br><br>
 
 # ▋Change Log
-It seems that server used for this chatGPT has some issues.<br>
-Check out [Here](#common-issue-empty-api-responses) for more details
+[**Status**]: Bot updated and works fine!<br>
+> ~~It seems that server used for this chatGPT has some issues.<br>
+> Check out [Here](#common-issue-empty-api-responses) for more details~~
+See more [here](#Full-Change-Log)
 
-Here are the latest additions:<br>
-**[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
-**[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
-**[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
-**[Dec 01, 2023] Error handling:** Added more handlers and depp link handlers.<br> 
-> **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
-> **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
-> **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
-> **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
-> **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
-> **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
-```
-/chat hi
-```
-> This will avoid mess in replies and even reactions to bot's responses
 
 <br>
 
@@ -32,15 +19,8 @@ Here are the latest additions:<br>
 1. **Smart reply**: Reply to user's message to process them with GPT.<br>
 2. **Code Generator**: Use code generator to generate functions in many languages.<br>
 3. **Image generator**: Use AI to generate images from prompt.
-
-<br>
-
-# ▋Old Changes
-> + history section added
-> + **/history** to get history file in json format
-> + **/reset** to reset the chat history
-> + **/danmode** to enable/disable DAN mode v10.0 in bot
-> Note: History will reset when using /danmode command!!
+4. **Multiple models**: Use multiple models by multiple providers like Google, Bing, OpenAi for free<br>
+5. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
 
 <br>
 
@@ -174,3 +154,23 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 </picture>
 
 
+# ▋Full Change Log
+**[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
+**[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
+**[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
+**[Dec 01, 2023] Error handling:** Added more handlers and depp link handlers.<br> 
+> **[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
+> **[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
+> **[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
+> **[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
+> **[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
+> **[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
+```
+/chat hi
+```
+> This will avoid mess in replies and even reactions to bot's responses
+> + history section added
+> + **/history** to get history file in json format
+> + **/reset** to reset the chat history
+> + **/danmode** to enable/disable DAN mode v10.0 in bot
+> Note: History will reset when using /danmode command!!
