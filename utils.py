@@ -152,8 +152,21 @@ def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False)
 
         # Update history
         data["messages"] = history
-        headers: Dict[str] = {
-            "Authorization": "Bearer pk-this-is-a-real-free-pool-token-for-everyone"
+        headers: Dict[str, str] = {
+            'authority': 'ai.fakeopen.com',
+            'accept': '*/*',
+            'accept-language': 'en,fr-FR;q=0.9,fr;q=0.8,es-ES;q=0.7,es;q=0.6,en-US;q=0.5,am;q=0.4,de;q=0.3',
+            'authorization': 'Bearer pk-this-is-a-real-free-pool-token-for-everyone',
+            'content-type': 'application/json',
+            'origin': 'https://chat.geekgpt.org',
+            'referer': 'https://chat.geekgpt.org/',
+            'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"macOS"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'cross-site',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
         }
 
         # Make request and get response
