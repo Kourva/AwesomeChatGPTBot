@@ -49,6 +49,7 @@ I'll wait for problem to solve and if not, I will change the request endpoints a
 ### Solutions
 For now, simple solution is to resend your prompt and ask your question again.
 + [Nov 13, 2023]: Not fixed but you can re-generate your prompt with inline button.
++ [Dec 05, 2023]: **Issue solved by editing request headers**!
 
 ### Contributions
 I welcome contributions. If you've found a reliable solution to this issue or have other useful suggestions, please consider contributing to this project.
@@ -153,6 +154,7 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kourva/AwesomeChatGPTBot&type=Date" />
 </picture>
 
+<br>
 
 # ▋Full Change Log
 **[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
