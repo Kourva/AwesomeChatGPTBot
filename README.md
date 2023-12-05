@@ -7,10 +7,10 @@
 <br><br>
 
 # ▋Change Log
-[**Status**]: Bot updated and works fine!<br>
-> ~~It seems that server used for this chatGPT has some issues.<br>
-> Check out [Here](#common-issue-empty-api-responses) for more details~~
-See more [here](#Full-Change-Log)
+[**Last Status**]: Bot updated and works fine!<br>
+> ~~It seems that server used for this chatGPT has some issues~~ [Solved].<br>
+> Check out [here](#common-issue-empty-api-responses) for more details and common issues.<br>
+See more logs [here](#Full-Change-Log)
 
 
 <br>
