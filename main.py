@@ -645,5 +645,20 @@ if __name__ == "__main__":
     except requests.exceptions.ReadTimeout:
         print("Connection lost... Trying again.")
 
-    except: 
-        print("Lost connection!")
+    except requests.exceptions.SSLError:
+        print(
+            "Maximum number of retries exceeded!\n"
+            "Possible solutions:\n"
+            "\t* Check the SSL configuration on the server and ensure it's correct.\n"
+            "\t* Simply try running the bot again!"
+            "\t* Ensure that the date and time on your system are correct, as SSL/TLS uses timestamps to validate certificates.\n"
+        )
+    except requests.exceptions.ConnectionError:
+        print(
+            "Connection Error"
+            "Possible solutions:\n"
+            "\t* Try VPN or proxy to connect to Telegram server.\n"
+        )
+        
+    except Exception as e: 
+        print(f"Error due to {e}!")
