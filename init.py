@@ -30,8 +30,8 @@ GPTbot.set_my_commands(
             description="Show help message"
         ),
         types.BotCommand(
-            command="setting",
-            description="ChatGPT setting"
+            command="ping",
+            description="Ping providers"
         ),
         types.BotCommand(
             command="chat",
