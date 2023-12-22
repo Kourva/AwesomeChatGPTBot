@@ -56,7 +56,7 @@ def fakeopen_chat(messages: List[Dict[str, str]]) -> Union[str, NoReturn]:
 
     # Try to send request or return None on failure
     try:
-        result = requests.post(url=url, data=data, headers=headers)
+        result = requests.post(url=url, json=data, headers=headers)
         return result.json()['choices'][0]['message']['content']
     except:
         return None
