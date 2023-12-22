@@ -5,7 +5,6 @@
 # Developed by Kourva
 # Source code: https://github.com/Kourva/AwesomeChatGPTBot
 
-# ——————————————————————————————————————————————————————————————
 # Standard library imports
 import json
 import os
@@ -24,18 +23,49 @@ from telebot.util import quick_markup, extract_arguments
 # Local application/library specific imports
 import utils
 import titles
-from utils import chat_gpt_function
+from utils import chat_function
+from Providers.deepinfra import deep_infra_chat
+from Providers.fstha import fstha_chat_gpt
+from Providers.onlinegpt import online_gpt_chat
+from Providers.fakeopen import fakeopen_chat
+
+# Initialize the bot with 'TOKEN' defined in utils.py file.
+try:
+    GPTbot: ClassVar[Any] = telebot.TeleBot(utils.TOKEN)
+    print(f"\33[0;32m[*] The Bot is online (bot id: {GPTbot.get_me().id})\33[m...")
+
+# Handle invalid token exception
+except telebot.apihelper.ApiTelegramException as ue:
+    if "Unauthorized" in ue.description:
+        raise SystemExit(
+            "Unauthorized Error!\n"
+            "  * Your Token is invalid! Use valid one."
+        )
+
+# Handle SSL error exception
+except requests.exceptions.SSLError:
+    raise SystemExit(
+        "Maximum number of retries exceeded!\n"
+        "  * Check the SSL configuration on the server and ensure it's correct.\n"
+        "  * Simply try running the bot again!"
+        "  * Ensure that the date and time on your system are correct, as SSL/TLS uses timestamps to validate certificates.\n"
+    )
+
+# Handle connection error exception
+except requests.exceptions.ConnectionError:
+    raise SystemExit(
+        "Connection Error!\n"
+        "  * Try again with VPN or proxy.\n"
+    )
+
+# Handle other exceptions
+except Exception as e:
+    raise SystemExit(
+        f"Unexpected Error!\n  {e}"
+    )
 
 
-# ——————————————————————————————————————————————————————————————
-# Initialize the bot
-# Token placed in utils.py file. You can change it with your token
-GPTbot: ClassVar[Any] = telebot.TeleBot(utils.TOKEN)
-print(f"The Bot is online (id: {GPTbot.get_me().id}) \33[0;32m[Normal MODE]\33[m...")
-
-
-# ——————————————————————————————————————————————————————————————
-# Message handler for 'start' command
+# Command handler for 'start' command
 @GPTbot.message_handler(commands=["start"])
 def start_command_handler(message: ClassVar[Any]) -> NoReturn:
     """
@@ -74,9 +104,9 @@ def start_command_handler(message: ClassVar[Any]) -> NoReturn:
     # Check if /start command pressed with create command.
     elif arg == "create":
         # Make account for user
-        if not os.path.exists(f"Accounts/{user_id}"):
+        if not os.path.exists(f"Accounts/{user.id}"):
             # Make user account and send welcome message to user
-            utils.create_user_account(user_id)
+            utils.create_user_account(user.id)
             GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
             GPTbot.reply_to(
                 message=message,
@@ -93,13 +123,60 @@ def start_command_handler(message: ClassVar[Any]) -> NoReturn:
             )
 
 
-# ——————————————————————————————————————————————————————————————
+# Command handler for 'ping' command
+@GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["ping"])
+def ping_command_handler(message: ClassVar[Any]) -> NoReturn:
+    """
+    Function to ping all available providers to see status of them
+
+    Parameter:
+        Message object
+
+    Returns:
+        None
+    """
+    # Send waiting prompt to user
+    GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
+    prompt = GPTbot.reply_to(
+        message=message,
+        text="Getting status! Please wait...",
+    ) 
+
+    # Make status mapping for providers
+    status_mapping = {
+        "deep_infra_chat": "Offline",
+        "fstha_chat_gpt": "Offline",
+        "online_gpt_chat": "Offline",
+        "fakeopen_chat": "Offline"
+    }
+    # Check providers availability
+    for provider in [deep_infra_chat, fstha_chat_gpt, online_gpt_chat, fakeopen_chat]:
+        if provider([{"role": "user", "content": "Hi"}]):
+            status_mapping[provider.__name__] = "Online"
+
+    # Update waiting prompt and replace status text
+    else:
+        GPTbot.edit_message_text(
+            chat_id=message.chat.id,
+            message_id=prompt.message_id,
+            text=(
+                f"*Status for available providers*:\n\n"
+                f"_Deepinfra AI_ (LLAMA 70b):\nstatus -> *{status_mapping['deep_infra_chat']}*\n\n"
+                f"_Fstha GPT_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['fstha_chat_gpt']}*\n\n"
+                f"_Online GPT_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['online_gpt_chat']}*\n\n"
+                f"_Fakeopen AI_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['fakeopen_chat']}*"
+            ),
+            parse_mode="Markdown"
+        )
+
+
+
 # Message handler for 'history' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["history"])
 def history_command_handler(message: ClassVar[Any]) -> NoReturn:
     """
-    Function to handle /history command. basically this will send users
-    history from first message.
+    Function to handle /history command. This will send users's
+    history from first message until last conversation.
 
     Parameter: 
         Message object
@@ -107,7 +184,6 @@ def history_command_handler(message: ClassVar[Any]) -> NoReturn:
     Returns: 
         None
     """
-    
     try:
         # Get user information from message
         user: ClassVar[str, int] = utils.User(message.from_user)
@@ -133,7 +209,6 @@ def history_command_handler(message: ClassVar[Any]) -> NoReturn:
         )
         
 
-# ——————————————————————————————————————————————————————————————
 # Message handler for 'reset' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["reset"])
 def reset_command_handler(message: ClassVar[Any]) -> NoReturn:
@@ -172,7 +247,6 @@ def reset_command_handler(message: ClassVar[Any]) -> NoReturn:
         )
 
 
-# ——————————————————————————————————————————————————————————————
 # Message handle for 'danmode' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["danmode"])
 def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
@@ -200,7 +274,7 @@ def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
 
         if system_role_exists:
             # Remove system role from history
-            temp: List[Dict[str]] = [
+            temp: List[Dict[str, str]] = [
                 item for item in history if item.get("role") != "system"
             ]
             with open(file_path, "w") as file:
@@ -213,7 +287,7 @@ def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
             )
         else:
             # Add 'Dan mode' role to history
-            history: List[Dict[str]] = [
+            history: List[Dict[str, str]] = [
                 {"role": "system", "content": utils.DAN_PROMPT}
             ]
             GPTbot.reply_to(
@@ -234,7 +308,6 @@ def dan_mode_command_handler(message: ClassVar[Any]) -> NoReturn:
         )
 
 
-# ——————————————————————————————————————————————————————————————
 # Message handler for 'help' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["help"])
 def help_command_handler(message: ClassVar[Any]) -> NoReturn:
@@ -256,7 +329,6 @@ def help_command_handler(message: ClassVar[Any]) -> NoReturn:
     )
 
 
-# ——————————————————————————————————————————————————————————————
 # Message handler for 'feature' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["features"])
 def feature_command_handler(message: ClassVar[Any]) -> NoReturn:
@@ -280,50 +352,6 @@ def feature_command_handler(message: ClassVar[Any]) -> NoReturn:
     )
 
 
-# ——————————————————————————————————————————————————————————————
-# Message handler for 'setting' command
-@GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["setting"])
-def setting_command_handler(message: ClassVar[Any]) -> NoReturn:
-    """
-    Function to handle /setting command. this will show ChatGPT setting
-    about data that is posting to API like its properties.
-
-    Parameter: 
-        Message object
-
-    Returns: 
-        None
-    """
-    try:
-        # Get user information from message
-        user: ClassVar[str, int] = utils.User(message.from_user)
-
-        # Making re-generate inline button
-        Markups = quick_markup({
-            "Change Chat Mode": {
-                "callback_data": "set_chat_mode"
-            }
-        })
-
-        # Reply settings to user
-        GPTbot.reply_to(
-            message=message,
-            text=titles.settings_title,
-            parse_mode="Markdown",
-            reply_markup=Markups
-        )
-
-    # Raise error if user account not found
-    except FileNotFoundError:
-        GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
-        GPTbot.reply_to(
-            message=message,
-            text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
-            disable_web_page_preview=True
-        )
-
-
-# ——————————————————————————————————————————————————————————————
 # Message handler for 'chat' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["chat"])
 def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
@@ -343,6 +371,7 @@ def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
         user: ClassVar[str, int] = utils.User(message.from_user)
         user_prompt: str = extract_arguments(message.text)
 
+        # Send usage if user just sent '/chat' without prompt
         if not user_prompt:
             GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
             GPTbot.reply_to(
@@ -354,20 +383,20 @@ def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
 
         # Send waiting message
         GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
-        gpt_prompt = GPTbot.reply_to(
+        gpt_prompt: ClassVar[Any] = GPTbot.reply_to(
             message=message,
             text=titles.response_prompt
         )
 
         # Making re-generate inline button
-        Markups = quick_markup({
+        Markups: ClassVar[Any] = quick_markup({
             f"Re-Generate": {
                 "callback_data": f"Re-Generate"
             }
         })
 
         # Fetch results from function
-        result = chat_gpt_function(user.id, user_prompt) or titles.response_error
+        result: str = chat_function(user.id, user_prompt) or titles.response_error
 
         # Answer user message
         GPTbot.edit_message_text(
@@ -387,16 +416,14 @@ def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
             disable_web_page_preview=True
         )
 
-    # Pass exceptions
+    # Log exception's message on failure
     except Exception as ex:
         print(str(ex))
         
 
-
-# ——————————————————————————————————————————————————————————————
-# Inline handler to handle inline roles
+# Inline handler to handle 'roles' inline query
 @GPTbot.inline_handler(lambda query: query.query == "roles")
-def query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
+def inline_query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
     """
     Function to handle inline roles. this inline handler will show
     all available prompts in bot
@@ -407,7 +434,6 @@ def query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
     Returns:
         None
     """
-
     try:
         # Create results list
         results: List = []
@@ -416,7 +442,7 @@ def query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
         sorted_tuples: Tuple[str] = sorted(utils.GPT_PROMPTS.items())
 
         # Create a new dictionary from the sorted list of tuples
-        sorted_dict: Dict[str] = {key: value for key, value in sorted_tuples}
+        sorted_dict: Dict[str, str] = {key: value for key, value in sorted_tuples}
 
         # Add items to results
         for Index, (Title, Prompt) in enumerate(sorted_dict.items(), start=1):
@@ -428,21 +454,19 @@ def query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
                     description=f"Bot will act as {Title}..."
                 )
             )
-
         # Show all results
         GPTbot.answer_inline_query(
             inline_query.id, results
         )
 
-    # Pass errors
+    # Log error message on failure
     except Exception as e:
         print(e)
 
 
-# ——————————————————————————————————————————————————————————————
-# Message handler for text content in private type chat
+# Message handler for text content in private type chat (for text conversation)
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", content_types=["text"])
-def handle_private_messages(message: callable) -> None:
+def handle_private_messages(message: ClassVar[Any]) -> None:
     """
     Function to handle text messages in private chat
      
@@ -460,20 +484,20 @@ def handle_private_messages(message: callable) -> None:
 
         # Send waiting prompt
         GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
-        gpt_prompt = GPTbot.reply_to(
+        gpt_prompt : ClassVar[Any] = GPTbot.reply_to(
             message=message,
             text=titles.response_prompt
         )
 
         # Making re-generate inline button
-        Markups = quick_markup({
+        Markups: ClassVar[Any] = quick_markup({
             "Re-Generate": {
                 "callback_data": f"Re-Generate"
             }
         })
 
         # Fetch results from function
-        result = chat_gpt_function(user.id, user_prompt) or titles.response_error
+        result: str = chat_function(user.id, user_prompt) or titles.response_error
 
         # Answer user message
         GPTbot.edit_message_text(
@@ -494,16 +518,15 @@ def handle_private_messages(message: callable) -> None:
         )
 
 
-# ——————————————————————————————————————————————————————————————
 # Callback query handler for re-generating message
 @GPTbot.callback_query_handler(func=lambda call:call.data == "Re-Generate")
-def re_generate_callback_handler(call: callable) -> None:
+def re_generate_callback_handler(call: ClassVar[Any]) -> NoReturn:
     # Get chatID and messageID
     chat_id: str = call.message.chat.id
     message_id: str = call.message.message_id
 
     # Get the content of last replied message
-    user_prompt = call.message.reply_to_message.text
+    user_prompt: str = call.message.reply_to_message.text
 
     try:
         # Remove /chat prefix if exist in message
@@ -522,14 +545,14 @@ def re_generate_callback_handler(call: callable) -> None:
         )
 
         # Making re-generate inline button
-        Markups = quick_markup({
+        Markups: ClassVar[Any] = quick_markup({
             "Re-Generate": {
                 "callback_data": f"Re-Generate"
             }
         })
 
         # Fetch results from function
-        result = chat_gpt_function(user.id, user_prompt) or titles.response_error
+        result: str = chat_function(user.id, user_prompt) or titles.response_error
 
         # Answer user message
         GPTbot.edit_message_text(
@@ -550,115 +573,24 @@ def re_generate_callback_handler(call: callable) -> None:
         )
 
 
-# ——————————————————————————————————————————————————————————————
-# Callback query handler for re-generating message
-@GPTbot.callback_query_handler(func=lambda call:call.data.startswith("set_"))
-def settings_callback_handler(call: callable) -> None:
-    # Get chatID and messageID
-    chat_id: str = call.message.chat.id
-    message_id: str = call.message.message_id
-
-    # Get user information from message
-    user: ClassVar[str, int] = utils.User(call.from_user)
-
-    # User's settings path
-    path: str = f"Accounts/{user.id}/setting.json"
-
-    try:
-        # Get user data
-        with open(path, "r") as file:
-            settings = json.load(file)
-
-        # Make markup button for parameter
-        Markups = quick_markup({
-            "Code Generation": {"callback_data": "set_mode_0"},
-            "Creative Writing": {"callback_data": "set_mode_1"},
-            "Chatbot Responses": {"callback_data": "set_mode_2"},
-            "Code Comment Generation": {"callback_data": "set_mode_3"},
-            "Data Analysis Scripting": {"callback_data": "set_mode_4"},
-            "Exploratory Code Writing": {"callback_data": "set_mode_5"},
-            "Save and Close": {"callback_data": "set_close"}
-        }, row_width=1)
-
-        # Show options to user
-        if call.data == "set_chat_mode":
-            # Answer user message
-            GPTbot.edit_message_text(
-                chat_id=chat_id,
-                message_id=message_id,
-                text=titles.current_settings.format(
-                    settings["frequency_penalty"],
-                    settings["presence_penalty"],
-                    settings["stream"],
-                    settings["temperature"],
-                    settings["top_p"]
-                ),
-                reply_markup=Markups
-            )
-
-        # Set mods to user
-        elif call.data.startswith("set_mode"):
-            index = int(call.data.split("set_mode_")[1])
-            current_mode = utils.MODES[index]
-
-            # Set mode to user's settings
-            with open(path, "w") as file:
-                json.dump(current_mode, file, indent=4)
-
-            # Update message
-            with open(path, "r") as file:
-                settings = json.load(file)
-                GPTbot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=titles.current_settings.format(
-                        settings["frequency_penalty"],
-                        settings["presence_penalty"],
-                        settings["stream"],
-                        settings["temperature"],
-                        settings["top_p"]
-                    ),
-                    reply_markup=Markups
-                )
-
-        elif call.data == "set_close":
-            GPTbot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=message_id,
-                    text=titles.setting_close
-                )
-
-    # Raise error if user account not found
-    except FileNotFoundError:
-        GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
-        GPTbot.reply_to(
-            message=message,
-            text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
-            disable_web_page_preview=True
-        )
-
-# ——————————————————————————————————————————————————————————————
 # Connect to bot
 if __name__ == "__main__":
     try:
         GPTbot.infinity_polling(skip_pending=True, none_stop=True)
     except requests.exceptions.ReadTimeout:
-        print("Connection lost... Trying again.")
+        raise SystemExit(
+            "Temporary Connection Error!\n"
+            "  * Connecting again..."
+        )    
 
-    except requests.exceptions.SSLError:
-        print(
-            "Maximum number of retries exceeded!\n"
-            "Possible solutions:\n"
-            "\t* Check the SSL configuration on the server and ensure it's correct.\n"
-            "\t* Simply try running the bot again!"
-            "\t* Ensure that the date and time on your system are correct, as SSL/TLS uses timestamps to validate certificates.\n"
-        )
-    except requests.exceptions.ConnectionError:
-        print(
-            "Connection Error"
-            "Possible solutions:\n"
-            "\t* Try VPN or proxy to connect to Telegram server.\n"
-        )
+    except telebot.apihelper.ApiTelegramException as ce:
+        if "Conflict" in ce.description:
+            raise SystemExit(
+                "Conflict Error: Another bot is running behind!\n"
+                "  * Make sure only one bot instance is running."
+            )
         
     except Exception as e: 
-        print(f"Error due to {e}!")
+        raise SystemExit(
+            f"Unexpected Error!\n  {e}"
+        )
