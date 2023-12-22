@@ -1,16 +1,13 @@
 <p align="center">
     <img align='left' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
     <h2>Free Chat GPT Telegram Bot </h2>
-  <p><i>Free ChatGPT-3.5 Telegram Bot with option to remenber chat history and pre-defined roles!</i></p>
-  <p><i>Without any <b>API-key</b> from OpenAI and other stuff <b>+</b> Inline bot</i></p>
+  <p><b>Free ChatGPT-3.5 Telegram Bot with Multiple Providers support!</b></p>
+  <p><b>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</b></p>
 </p>
 <br><br>
 
 # ▋Change Log
-[**Last Status**]: Bot updated and works fine!<br>
-> ~~It seems that server used for this chatGPT has some issues~~ [Solved].<br>
-> Check out [here](#common-issue-empty-api-responses) for more details and common issues.<br>
-
+[**Last Status: Dec 22, 2023**]: Bot updated! see changes below.<br>
 See more logs [here](#full-change-log)
 
 
@@ -20,37 +17,25 @@ See more logs [here](#full-change-log)
 1. **Smart reply**: Reply to user's message to process them with GPT.<br>
 2. **Code Generator**: Use code generator to generate functions in many languages.<br>
 3. **Image generator**: Use AI to generate images from prompt.
-4. **Multiple models**: Use multiple models by multiple providers like Google, Bing, OpenAi for free<br>
+4. ~~**Multiple models**: Use multiple providers~~ **(DONE)**<br>
 5. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
 
 <br>
 
-# ▋Bot is Down? Not working?
-Visit https://status.fakeopen.com for more information about external API
+# Multiple Providers
+From now bot includes multiple providers (Thanks for [gpt4free](https://github.com/xtekky/gpt4free)).<br>
+For responding, bot tries all providers one by one to respond and breaks the loop in first valid response. So you don't have to select provider.
+If non of providers worked, bot will tell you to generate your prompt again.<br>
+**List of available providers**:
++ **FakeOpen Ai** (uses model ChatGPT 3.5 Turbo)
++ **Fstha Chat** (uses model ChatGPT 3.5 Turbo)
++ **DeepInfra AI** (uses model Llama 2 70b Chat hf)
++ **Online GPT** (uses model ChatGPT 3.5 Turbo)
 
 <br>
 
-# ▋Common Issue: Empty API Responses
-### Problem Description
-The problem often arises when the API doesn't return the expected data (empty string), affecting the functionality of the chat bot. I used error handler to handle this empty result and send `Error! ChatGPT is not responding at this time!` to the user instead of raising error from Telegram! <br>
-This issue is caused by problems with the external API (Maybe IP limitation or bot chanllenges).
-This is latest response from bot:
-```json
-{
-    "error": {
-        "message": "It is recommended to upgrade to the latest PandoraNext: https://github.com/pandora-next/deploy",
-        "type": "invalid_request_error",
-        "param": null,
-        "code": null
-    }
-}
-```
-I'll wait for problem to solve and if not, I will change the request endpoints and find new one.
-
-### Solutions
-For now, simple solution is to resend your prompt and ask your question again.
-+ [Nov 13, 2023]: Not fixed but you can re-generate your prompt with inline button.
-+ [Dec 05, 2023]: **Issue solved by editing request headers**!
+# ▋Bot is Down? Not working?
+Since bot is supporting multiple providers now, you can use `/ping` to check which one is working.
 
 ### Contributions
 I welcome contributions. If you've found a reliable solution to this issue or have other useful suggestions, please consider contributing to this project.
@@ -58,9 +43,10 @@ I welcome contributions. If you've found a reliable solution to this issue or ha
 <br>
 
 # ▋Features
-This bot responds to every message with ChatGPT AI, excluding commands.
+This bot responds to every message with ChatGPT AI and other models like llama, excluding commands.
 + Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3#issuecomment-1791705893)
 + The ability to remember chat history (long-term memory).
++ Multiple providers.
 
 <br>
 
@@ -69,7 +55,7 @@ To get started, first you need to **clone** this repository from github into you
 ```bash
 git clone https://github.com/Kourva/AwesomeChatGPTBot
 ```
-and if you dont have git you can install it from your package manager!
+> if you dont have git or python you can install it from your package manager!
 
 <br>
 
@@ -83,18 +69,24 @@ cd AwesomeChatGPTBot
 ```bash
 pip install -r requirements.txt
 ```
-This will install **pyTelegamBotAPI** and **Requests** for you
+This will install **pyTelegamBotAPI** and **Requests** for you, You can also install them manually if you got any error:
+```bash
+pip install pyTelegamBotAPI Requests
+```
 
 <br>
 
 # ▋Configure your token
-Now you have to get create bot from [BotFather](https://t.me/BotFather) **(If you don't have)** and take your **Token** to starts working with your bot.<br>
-After getting **Token** from **BotFather** replace the Token in `utils.py` in line **7** as follows:
-```python
-# Bot token to use
-Token = "6146793572:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk"
+Now you have to create bot from [BotFather](https://t.me/BotFather) **(If you don't have)** and get your **Token** to start working with your bot.<br>
+After getting **Token** from **BotFather** replace the Token in `token.txt`
+```plaintext
+0000000000:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk
 ```
-> This is just an example Token. Use yours instead
+You can use editors like 'nano' or 'vim' in Termux or using echo command to write token to file:
+```bash
+echo "0000000000:AAE7fbH29UPOKzlHlp0YDr9o06o_NdD4DBk" > token.txt
+```
+> This is just an example Token. 
 
 <br>
 
@@ -106,7 +98,7 @@ python init.py
 > This will set up these commands in bot's menu
 > + `/start`
 > + `/help`
-> + `/setting`
+> + `/ping`
 > + `/chat`
 > + `/features`
 > + `/history`
@@ -129,13 +121,17 @@ Or in quiet mode
 proxychains -q python main.py
 ```
 To install proxychains install `proxychains-ng` and then edit the config file in `/etc/proxychains.conf`.<br>
-In config file comment the `strict_chain` and un-comment `dynamic_chain` and its ready to use.
+It depends on you to use `strict_chain` or `dynamic_chain`. Config it by yourself.
 <br>
 
 # ▋TOR new IP address
 If you got any denied requests that blocked your Ip address, you can renew your IP
 ```bash
 sudo killall -HUP tor
+```
+And if you want to check your TOR status, use this command:
+```bash
+proxychains curl https://check.torproject.org/api/ip
 ```
 
 <br>
@@ -158,6 +154,13 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 <br>
 
 # ▋Full Change Log
+**[Dec 22, 2023]** Added Multiple Providers.<br>
+**[Dec 22, 2023]** Added `/ping` command to ping providers.<br>
+**[Dec 22, 2023]** Removed `/setting` command and setting files for users.<br>
+**[Dec 22, 2023]** Added more exception handlers for both Connection and Telegram API.<br>
+
+<br>
+
 **[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
 **[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
 **[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
