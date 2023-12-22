@@ -1,70 +1,113 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# ——————————————————————————————————————————————————————————————
 # Standard library imports
-from typing import Any, Dict, List, Optional, NoReturn, ClassVar, Union
+import random
 import json
 import os
 import re
+from typing import (
+    Any, Dict, List, Optional, 
+    NoReturn, ClassVar, Union, Callable
+    )
 
 # Related third party imports
 import requests
 
-# ——————————————————————————————————————————————————————————————
+# Local Application/Library Specific Imports
+from Providers.deepinfra import deep_infra_chat
+from Providers.fstha import fstha_chat_gpt
+from Providers.onlinegpt import online_gpt_chat
+from Providers.fakeopen import fakeopen_chat
+
+
 # Telegram bot's token
-TOKEN: str = "Token"
+try:
+    with open("token.txt") as token_file:
+        TOKEN: str = token_file.read().strip()
+except Exception as ex:
+    print("Something is wrong with token file! Check it\n\nLog: {ex}")
 
 
-# ——————————————————————————————————————————————————————————————
-# User class for user information
+# Get providers list
+PROVIDERS: List[Callable] = [
+    deep_infra_chat, # Model: LLAMA-2-70b-Chat-HF
+    fstha_chat_gpt,  # Model: ChatGPT-3.5-Turbo
+    online_gpt_chat, # Model: ChatGPT-3.5-Turbo
+    fakeopen_chat    # Model: ChatGPT-3.5-Turbo
+]
+
+
 class User:
+    """
+    User class to get information about from_user object
+    """
     def __init__(self, user_data: ClassVar[Union[int, str]]) -> NoReturn:
+        """
+        Initial method to make basic information about user
+
+        Parameters:
+            user_data int or str: from_user object
+
+        Returns:
+            None (typing.NoReturn) 
+        """
         self.fn: str = user_data.first_name
         self.ln: str = user_data.last_name
         self.un: str = user_data.username
-        self.id: int = user_data.id  
+        self.id: int = user_data.id
 
-    # Get possible value for user's name
     @property
-    def get_name(self):
+    def get_name(self) -> Union[str, int]:
+        """
+        Property accessor to get valid name for user
+
+        Returns:
+            user info (str or int): valid user info
+        """
         return self.fn or self.ln or self.un or self.id
     
 
-# ——————————————————————————————————————————————————————————————
-# Function to create user account
 def create_user_account(user_id: str) -> NoReturn:
-    # Open initial files for user
-    folder_path: str = f"Accounts/{user_id}" 
-    history_file_path: str = f"{folder_path}/history.json"
-    setting_file_path: str = f"{folder_path}/setting.json"
+    """
+    Function to create account for user
 
+    Parameters:
+        user ID (int): User's Chat-ID
+
+    Returns:
+        None (typing.NoReturn)
+    """
+    # set user's directory path
+    user_path: str = f"Accounts/{user_id}" 
     try:
         # Make folder for user
-        os.mkdir(folder_path)
+        os.mkdir(user_path)
 
-        with open(history_file_path, "w") as file1, open(setting_file_path, "w") as file2:
-            # Make history and setting file
+        with open(f"{user_path}/history.json", "w") as file1:
+            # Make empty history file
             json.dump([], file1)
-            json.dump({
-                "frequency_penalty": 0, 
-                "messages": None, 
-                "model": "gpt-3.5-turbo", 
-                "presence_penalty": 0, 
-                "stream": True, 
-                "temperature": 0.5,
-                "top_p": 0.5
-            }, file2, indent=4)
 
     except Exception as ex:
+        # Print error message on failure
         print(str(ex))
 
 
-# ——————————————————————————————————————————————————————————————
-# Markdown escape function
 def escape_markdown(string: str) -> str:
+    """
+    Markdown escaper function to escape response in markdown
+    also checks code blocks and skip them in escape process.
+
+    Parameters:
+        string (Str): input string
+
+    Returns:
+        str: Escaped string
+    """
     try:
-        temp = string
+        # Make backup for input string
+        temp: str = string
+
         # Replace 3 code blocks if exist with placeholder
         if (code_blocks3:= re.findall(r"```[\s\S]+?```", temp)):
             for block in code_blocks3:
@@ -75,7 +118,7 @@ def escape_markdown(string: str) -> str:
             for block in code_blocks1:
                 temp = temp.replace(block, "1CodePlaceholder")
 
-        # Escape characters
+        # Define escape characters and escape them in input string
         for char in [
             '_', '*', '[', ']', '(', ')', '~', '`', '>', 
             '#', '+', '-', '=', '|', '{', '}', '.', '!'
@@ -91,18 +134,19 @@ def escape_markdown(string: str) -> str:
         if code_blocks1:
             for i, block in enumerate(code_blocks1):
                 temp = temp.replace("1CodePlaceholder", code_blocks1[i], 1)
+
+        # Return final escaped string
         return temp
 
     except Exception as ex:
+        # Print error and return original string on failure
         print(str(ex))
         return string
 
 
-# ——————————————————————————————————————————————————————————————
-# GPT function
-def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> str:
+def chat_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> str:
     """
-    Chat GPT function, from fakeopen AI
+    Chat function uses multiple providers to response to input prompt
 
     Parameters:
         UserID (int): unique identity of user in chat                   # required
@@ -110,25 +154,25 @@ def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False)
         Stream (bool): whether prompt is being added to history or not  # optional
 
     Returns:
-        string (str): chat GPT's response or Error message
+        string (str): chat response or Error message
     """
     try:
-        # Make sure user have account, even if it not started bot.
-        folder_path: str = f"Accounts/{user_id}" 
-        history_file_path: str = f"{folder_path}/history.json"
-        setting_file_path: str = f"{folder_path}/setting.json"
+        # Initial user path and history file path for user
+        user_path: str = f"Accounts/{user_id}" 
+        history_file_path: str = f"{user_path}/history.json"
 
-        if not os.path.exists(folder_path):
-            os.mkdir(folder_path)
+        # Create user's directory if user does not have it already
+        if not os.path.exists(user_path):
+            os.mkdir(user_path)
 
-        if not os.path.exists(history_file_path) and not os.path.exists(setting_file_path):
-            with open(history_file_path, "w") as file, open(setting_file_path, "w") as file2:
+        # Create history file for user if user does not have it already
+        if not os.path.exists(history_file_path):
+            with open(history_file_path, "w") as file:
                 json.dump([], file)
-                json.dump(MODES[2], file2, indent=4)
 
-        # Read history and add user role to history
+        # Read history and add user role (new prompt) to history
         with open(history_file_path, "r") as file:
-            history: List[Dict[str]] = json.load(file)
+            history: List[Dict[str, str]] = json.load(file)
 
             # If history is empty or consists only of system messages, make stream false
             if not history or any(item.get("role") == "system" for item in history):
@@ -143,56 +187,35 @@ def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False)
                     "content": prompt
                 })
 
-        # Request URL and Authorization and Data
-        url: str = "https://ai.fakeopen.com/v1/chat/completions"
+        # Shuffle provider list (to choose random provider - not always same)
+        random.shuffle(PROVIDERS)
 
-        # Get data from setting
-        with open(setting_file_path, "r") as file:
-            data: Dict[str, int] = json.load(file)
+        # Initialize chat result and error message
+        chat_result: str = ""
+        error_msg: str = "Non of providers Worked. Try again!"
 
-        # Update history
-        data["messages"] = history
-        headers: Dict[str, str] = {
-            'authority': 'ai.fakeopen.com',
-            'accept': '*/*',
-            'accept-language': 'en,fr-FR;q=0.9,fr;q=0.8,es-ES;q=0.7,es;q=0.6,en-US;q=0.5,am;q=0.4,de;q=0.3',
-            'authorization': 'Bearer pk-this-is-a-real-free-pool-token-for-everyone',
-            'content-type': 'application/json',
-            'origin': 'https://chat.geekgpt.org',
-            'referer': 'https://chat.geekgpt.org/',
-            'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"macOS"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'cross-site',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
-        }
+        # Try all available providers
+        for provider in PROVIDERS:
+            # Get response from provider
+            response: str = provider(history)
 
-        # Make request and get response
-        res: str = requests.post(
-            url=url,
-            json=data, 
-            headers=headers,
-        ).text
-
-        gpt_result: str = ""
-        for chuck in res.strip().split("\n\n")[:-1]:
-            temp: Dict[Any] = json.loads(chuck.split("data: ")[1])
-            try:
-                gpt_result += temp["choices"][0]["delta"]["content"]
-            except:
-                pass
+            # Break the loop if response is valid, otherwise try another provider
+            if response:
+                chat_result = response
+                break
+        else:
+            # Return error if non of providers worked
+            chat_result = error_msg
 
         # Fix history and return error message if result is empty
-        if gpt_result == "":
+        if chat_result == error_msg:
             del history[-1]
-            return False
+            return error_msg
        
-        # Add GPT prompt to history
+        # Add chat prompt to history if result is valid
         history.append({
             "role": "assistant",
-            "content": gpt_result
+            "content": chat_result
         })
 
         # Save new history
@@ -200,33 +223,25 @@ def chat_gpt_function(user_id: int, prompt: str, stream: Optional[bool] = False)
             json.dump(history, file, indent=4)
 
         # Return chat answer
-        return gpt_result
+        return chat_result
 
     # Handle errors
     except Exception as error:
         # Remove broken pair
-        if history[-1]["role"] == "user":
-            del history[-1]
+        try:
+            if history[-1]["role"] == "user":
+                del history[-1]
+        except: 
+            pass
 
+        # Handle Connection timed out error
         if "HTTPSConnectionPool" in str(error):
-            return "[!] **Connection timed out**."
+            return "**Connection timed out**."
 
-        return f"[!] **Unknown Issue**!\n\nLog:\n```\n{error}\n```"
+        # Handle other error types
+        return f"**Unknown Issue**!\n\nLog:\n```\n{error}\n```"
 
 
-
-# ——————————————————————————————————————————————————————————————
-# Settings templates for POST parameters
-MODES = [
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.2,"top_p": 0.1},
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.7,"top_p": 0.8},
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.5,"top_p": 0.5},
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.3,"top_p": 0.2},
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.2,"top_p": 0.1},
-    {"frequency_penalty": 0,"messages": None,"model": "gpt-3.5-turbo","presence_penalty": 0,"stream": True,"temperature": 0.6,"top_p": 0.7}
-]
-
-# ——————————————————————————————————————————————————————————————
 # ChatGPT's Role Prompts used in inline mode
 GPT_PROMPTS: Dict[str, Any] = {
     "Linux Terminal": """I want you to act as a linux terminal. I will type commands and you will reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. do not write explanations. do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}. My first command is pwd""",
