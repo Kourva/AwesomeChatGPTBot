@@ -66,10 +66,10 @@ help_message = (
     "*Other commands*:\n"
     "1. /features: See feature changes\n\n"
     "*Inline usage*:\n"
-    "```\n@{} roles```\n"
+    "`\n@{} roles`\n"
     "this will show all available roles.\n\n"
     "*Chat command usage*:\n"
-    "```\n/chat hello world!```"
+    "`\n/chat hello world!`"
 )
 
 # Features prompt for (/features) command
