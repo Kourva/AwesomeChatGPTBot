@@ -353,7 +353,7 @@ def feature_command_handler(message: ClassVar[Any]) -> NoReturn:
 
 
 # Message handler for 'chat' command
-@GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["chat"])
+@GPTbot.message_handler(commands=["chat"])
 def chat_command_handler(message: ClassVar[Any]) -> NoReturn:
     """
     Function to handle /chat command, this command is used to chat
@@ -464,11 +464,11 @@ def inline_query_text_handler(inline_query: ClassVar[Any]) -> NoReturn:
         print(e)
 
 
-# Message handler for text content in private type chat (for text conversation)
-@GPTbot.message_handler(func=lambda x: x.chat.type == "private", content_types=["text"])
-def handle_private_messages(message: ClassVar[Any]) -> None:
+# Message handler for text content in all chat types (for text conversation)
+@GPTbot.message_handler(content_types=["text"])
+def handle_messages(message: ClassVar[Any]) -> None:
     """
-    Function to handle text messages in private chat
+    Function to handle text messages in chats
      
     Parameter: 
         Message object
