@@ -1,24 +1,24 @@
 <p align="center">
-    <img align='left' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
-    <h2>Free Chat GPT Telegram Bot </h2>
-  <p><b>Free ChatGPT-3.5 Telegram Bot with Multiple Providers support!</b></p>
-  <p><b>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</b></p>
+    <img align='center' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
+  <p align='center'><b>Free ChatGPT Telegram Bot with Multiple Providers support!</b></p>
+  <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</p>
 </p>
 <br><br>
 
 # ▋Change Log
-[**Last Status: Dec 22, 2023**]: Bot updated! see changes below.<br>
+[**Last Status: Mar 14, 2024**]: Bot updated!<br>
 See more logs [here](#full-change-log)
 
 
 <br>
 
 # ▋Upcoming Features
-1. **Smart reply**: Reply to user's message to process them with GPT.<br>
-2. **Code Generator**: Use code generator to generate functions in many languages.<br>
+1. **Smart reply**: Reply to user's message to process them with GPT.
+2. **Code generator**: Use code generator to generate functions in many languages.
 3. **Image generator**: Use AI to generate images from prompt.
-4. ~~**Multiple models**: Use multiple providers~~ **(DONE)**<br>
-5. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
+4. ~~**Voice response**: Use Brian voice as your respone~~ **(DONE)**
+5. ~~**Multiple models**: Use multiple providers~~ **(DONE)**
+6. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
 
 <br>
 
@@ -31,6 +31,8 @@ If non of providers worked, bot will tell you to generate your prompt again.<br>
 + **Fstha Chat** (uses model ChatGPT 3.5 Turbo)
 + **DeepInfra AI** (uses model Llama 2 70b Chat hf)
 + **Online GPT** (uses model ChatGPT 3.5 Turbo)
++ **Free GPT 4** (uses ChatGPT 4)
+You can send `/settings` command to bot to change these providers (Enable/Disable)
 
 <br>
 
@@ -45,8 +47,10 @@ I welcome contributions. If you've found a reliable solution to this issue or ha
 # ▋Features
 This bot responds to every message with ChatGPT AI and other models like llama, excluding commands.
 + Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3#issuecomment-1791705893)
-+ The ability to remember chat history (long-term memory).
++ The ability to remember chat history.
 + Multiple providers.
++ Voice response.
++ Provider settings (use /settings)
 
 <br>
 
@@ -104,6 +108,8 @@ python init.py
 > + `/history`
 > + `/reset`
 > + `/danmode`
+> + `/tts`
+> + `/settings`
 
 <br>
 
@@ -154,13 +160,17 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 <br>
 
 # ▋Full Change Log
+**[Mar 14, 2024]** Added /settings & /tts commands
+**[Mar 14, 2024]** Added voice response
+```
+/tts hi
+```
+**[Mar 14, 2024]** Added new chatGPT 4 provider
+<br>
 **[Dec 22, 2023]** Added Multiple Providers.<br>
 **[Dec 22, 2023]** Added `/ping` command to ping providers.<br>
 **[Dec 22, 2023]** Removed `/setting` command and setting files for users.<br>
 **[Dec 22, 2023]** Added more exception handlers for both Connection and Telegram API.<br>
-
-<br>
-
 **[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
 **[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
 **[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
