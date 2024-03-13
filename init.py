@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Standard library imports
-from typing import Any, ClassVar
+import typing
 
 # Related third party imports
 from telebot import types, util
@@ -14,7 +14,7 @@ import utils
 
 # Connect to bot
 # Token placed in utils.py file. You can change it with your token
-GPTbot: ClassVar[Any] = telebot.TeleBot(utils.TOKEN)
+GPTbot: typing.ClassVar[typing.Any] = telebot.TeleBot(utils.TOKEN)
 print(f"The Bot is online (id: {GPTbot.get_me().id}) \33[0;31m[Initial MODE]\33[m...")
 
 # Set bot commands
@@ -34,8 +34,16 @@ GPTbot.set_my_commands(
             description="Ping providers"
         ),
         types.BotCommand(
+            command="settings",
+            description="Provider settings"
+        ),
+        types.BotCommand(
             command="chat",
             description="Chat in groups using this command"
+        ),
+        types.BotCommand(
+            command="tts",
+            description="Brian Text To Speech response"
         ),
         types.BotCommand(
             command="history",
