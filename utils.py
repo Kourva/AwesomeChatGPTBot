@@ -6,10 +6,7 @@ import random
 import json
 import os
 import re
-from typing import (
-    Any, Dict, List, Optional, 
-    NoReturn, ClassVar, Union, Callable
-    )
+import typing
 
 # Related third party imports
 import requests
@@ -19,6 +16,7 @@ from Providers.deepinfra import deep_infra_chat
 from Providers.fstha import fstha_chat_gpt
 from Providers.onlinegpt import online_gpt_chat
 from Providers.fakeopen import fakeopen_chat
+from Providers.freegpt4 import free_gpt_4
 
 
 # Telegram bot's token
@@ -30,19 +28,19 @@ except Exception as ex:
 
 
 # Get providers list
-PROVIDERS: List[Callable] = [
+PROVIDERS: typing.List[typing.Callable] = [
+    free_gpt_4,      # Model: ChatGPT-4
     deep_infra_chat, # Model: LLAMA-2-70b-Chat-HF
     fstha_chat_gpt,  # Model: ChatGPT-3.5-Turbo
     online_gpt_chat, # Model: ChatGPT-3.5-Turbo
     fakeopen_chat    # Model: ChatGPT-3.5-Turbo
 ]
 
-
 class User:
     """
     User class to get information about from_user object
     """
-    def __init__(self, user_data: ClassVar[Union[int, str]]) -> NoReturn:
+    def __init__(self, user_data: typing.ClassVar[typing.Union[int, str]]) -> typing.NoReturn:
         """
         Initial method to make basic information about user
 
@@ -58,7 +56,7 @@ class User:
         self.id: int = user_data.id
 
     @property
-    def get_name(self) -> Union[str, int]:
+    def get_name(self) -> typing.Union[str, int]:
         """
         Property accessor to get valid name for user
 
@@ -68,7 +66,7 @@ class User:
         return self.fn or self.ln or self.un or self.id
     
 
-def create_user_account(user_id: str) -> NoReturn:
+def create_user_account(user_id: str) -> typing.NoReturn:
     """
     Function to create account for user
 
@@ -87,6 +85,16 @@ def create_user_account(user_id: str) -> NoReturn:
         with open(f"{user_path}/history.json", "w") as file1:
             # Make empty history file
             json.dump([], file1)
+
+        with open(f"{user_path}/providers.json", "w") as file2:
+            # Make default provider settings
+            json.dump({
+                "deep_infra_chat": True,
+                "fakeopen_chat": True,
+                "free_gpt_4": True,
+                "fstha_chat_gpt": True,
+                "online_gpt_chat": True
+            }, file2, indent=4)
 
     except Exception as ex:
         # Print error message on failure
@@ -144,7 +152,7 @@ def escape_markdown(string: str) -> str:
         return string
 
 
-def chat_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> str:
+def chat_function(user_id: int, prompt: str, stream: typing.Optional[bool] = False) -> str:
     """
     Chat function uses multiple providers to response to input prompt
 
@@ -172,7 +180,7 @@ def chat_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> 
 
         # Read history and add user role (new prompt) to history
         with open(history_file_path, "r") as file:
-            history: List[Dict[str, str]] = json.load(file)
+            history: typing.List[typing.Dict[str, str]] = json.load(file)
 
             # If history is empty or consists only of system messages, make stream false
             if not history or any(item.get("role") == "system" for item in history):
@@ -187,15 +195,29 @@ def chat_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> 
                     "content": prompt
                 })
 
-        # Shuffle provider list (to choose random provider - not always same)
-        random.shuffle(PROVIDERS)
+        # Open provider data
+        with open(f"Accounts/{user_id}/providers.json", "r") as file:
+            provider_list = json.load(file)
+
+        # Include only the providers marked as 'true' in the settings
+        included_providers = [
+            provider for provider, include in provider_list.items() if include
+        ]
+
+        # Filter the PROVIDERS list based on included function names
+        filtered_providers = [
+            provider for provider in PROVIDERS if provider.__name__ in included_providers
+        ]
+        
+        # Shuffle provider list (to choose random provider, not always same)
+        random.shuffle(filtered_providers)
 
         # Initialize chat result and error message
         chat_result: str = ""
         error_msg: str = "Non of providers Worked. Try again!"
 
         # Try all available providers
-        for provider in PROVIDERS:
+        for provider in filtered_providers:
             # Get response from provider
             response: str = provider(history)
 
@@ -243,7 +265,7 @@ def chat_function(user_id: int, prompt: str, stream: Optional[bool] = False) -> 
 
 
 # ChatGPT's Role Prompts used in inline mode
-GPT_PROMPTS: Dict[str, Any] = {
+GPT_PROMPTS: typing.Dict[str, typing.Any] = {
     "Linux Terminal": """I want you to act as a linux terminal. I will type commands and you will reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. do not write explanations. do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}. My first command is pwd""",
     "JavaScript Console": """I want you to act as a javascript console. I will type commands and you will reply with what the javascript console should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. do not write explanations. do not type commands unless I instruct you to do so. when I need to tell you something in english, I will do so by putting text inside curly brackets {like this}. My first command is console.log("Hello World");""",
     "Excel Sheet": """I want you to act as a text based excel. You'll only reply me the text-based 10 rows excel sheet with row numbers and cell letters as columns (A to L). First column header should be empty to reference row number. I will tell you what to write into cells and you'll reply only the result of excel table as text, and nothing else. Do not write explanations. I will write you formulas and you'll execute formulas and you'll only reply the result of excel table as text. First, reply me the empty sheet.""",
