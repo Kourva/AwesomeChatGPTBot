@@ -6,7 +6,7 @@
 <br><br>
 
 # ▋Change Log
-[**Last Status: Mar 14, 2024**]: Bot updated!<br>
+[**Last Status: Apr 21, 2024**]: Bot updated!<br>
 See more logs [here](#full-change-log)
 
 
@@ -32,6 +32,7 @@ If non of providers worked, bot will tell you to generate your prompt again.<br>
 + **DeepInfra AI** (uses model Llama 2 70b Chat hf)
 + **Online GPT** (uses model ChatGPT 3.5 Turbo)
 + **Free GPT 4** (uses ChatGPT 4)
++ **GPT 4 Free** (uses ChatGPT 4) [gpt4free](https://github.com/xtekky/gpt4free)
 You can send `/settings` command to bot to change these providers (Enable/Disable)
 
 <br>
@@ -160,6 +161,7 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 <br>
 
 # ▋Full Change Log
+**[Apr 21, 2024]** Added gpt4free client which have no issues operating with Cyrillic/Chinese symbols
 **[Mar 14, 2024]** Added /settings & /tts commands
 **[Mar 14, 2024]** Added voice response
 ```
