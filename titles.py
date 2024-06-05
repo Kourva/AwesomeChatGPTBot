@@ -92,8 +92,7 @@ features: str = (
     "https://github.com/Kourva/AwesomeChatGPTBot/issues\n\n"
     "*Recent changes*:\n"
     "# Added more providers.\n"
-    "# Changes on commands (/tts, /settings).\n"
-    "# Changes on user configs file."
+    "# Added Uncensored AI."
 )
 
 # Usage help for (/chat) command:
