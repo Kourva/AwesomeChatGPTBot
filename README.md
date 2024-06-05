@@ -1,10 +1,10 @@
-<p align="center">
+ <p align="center">
     <img align='center' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
   <p align='center'><b>Free ChatGPT Telegram Bot with Multiple Providers support!</b></p>
   <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</p>
 </p>
 <br><br>
-
+ 
 # ▋Change Log
 [**Last Status: Jun 05, 2024**]: Added Uncensored AI!<br>
 See more logs [here](#full-change-log)
