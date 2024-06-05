@@ -735,11 +735,11 @@ def settings_callback_handler(call: typing.ClassVar[typing.Any]) -> typing.NoRet
         # Make result
         Markup = types.InlineKeyboardMarkup()
 
-        for provider, status in provider_list.items():
+        for p, s in provider_list.items():
             Markup.add(
                 types.InlineKeyboardButton(
-                    text=f"{provider}: {status}",
-                    callback_data=f"settings@{provider}"
+                    text=f"{p}: {s}",
+                    callback_data=f"settings@{p}"
                 )
             )
         # Add clone button
