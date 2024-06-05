@@ -28,6 +28,7 @@ from Providers.onlinegpt import online_gpt_chat
 from Providers.fakeopen import fakeopen_chat
 from Providers.freegpt4 import free_gpt_4
 from Providers.brian import brian_tts
+from Providers.uncensored import uncensored_ai
 
 # Initialize the bot with 'TOKEN' defined in utils.py file.
 try:
@@ -150,6 +151,7 @@ def ping_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
         "fakeopen_chat": "Offline",
         "free_gpt_4": "Offline",
         "gpt_4_free_client": "Offline",
+        "uncensored_ai": "Offline"
     }
     # Check providers availability
     for provider in [deep_infra_chat, 
@@ -157,7 +159,8 @@ def ping_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
                      online_gpt_chat, 
                      fakeopen_chat, 
                      free_gpt_4,
-                     gpt_4_free_client]:
+                     gpt_4_free_client,
+                     uncensored_ai]:
         GPTbot.edit_message_text(
             chat_id=message.chat.id,
             message_id=prompt.message_id,
@@ -181,7 +184,8 @@ def ping_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
                 f"_Free GPT 4_ (GPT 4):\nstatus -> *{status_mapping['free_gpt_4']}*\n\n"
                 f"_GPT Free 4 Client_ (GPT 4):\nstatus -> *{status_mapping['gpt_4_free_client']}*\n\n"
                 f"_Online GPT_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['online_gpt_chat']}*\n\n"
-                f"_Fakeopen AI_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['fakeopen_chat']}*"    
+                f"_Fakeopen AI_ (GPT 3.5 Turbo):\nstatus -> *{status_mapping['fakeopen_chat']}*\n\n"
+                f"_Uncensored AI_ (LLAMA 70b):\nstatus -> *{status_mapping['uncensored_ai']}*"    
             ),
             parse_mode="Markdown"
         )
