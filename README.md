@@ -6,7 +6,7 @@
 <br><br>
  
 # ▋Change Log
-[**Last Status: Jun 05, 2024**]: Added Uncensored AI!<br>
+[**Last Status: Jun 17, 2024**]: Fixed (FileNotFountError) in providers.json for old users!<br>
 See more logs [here](#full-change-log)
 
 
@@ -16,9 +16,11 @@ See more logs [here](#full-change-log)
 1. **Smart reply**: Reply to user's message to process them with GPT.
 2. **Code generator**: Use code generator to generate functions in many languages.
 3. **Image generator**: Use AI to generate images from prompt.
-4. ~~**Voice response**: Use Brian voice as your respone~~ **(DONE)**
-5. ~~**Multiple models**: Use multiple providers~~ **(DONE)**
-6. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
+4. **similar question**: Generate similar questions beside **Re-Generate** button
+5. **Multi voice TTS**: Add multiple TTS voices in multiple langugaes
+7. ~~**Voice response**: Use Brian voice as your respone~~ **(DONE)**
+8. ~~**Multiple models**: Use multiple providers~~ **(DONE)**
+9. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
 
 <br>
 
@@ -162,6 +164,7 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 <br>
 
 # ▋Full Change Log
+**[Jun 17, 2024]** Fixed (FileNotFountError) in providers.json for old users!<br>
 **[Jun 05, 2024]** Added Uncensored AI!<br>
 **[Apr 21, 2024]** Added gpt4free client which have no issues operating with Cyrillic/Chinese symbols
 **[Mar 14, 2024]** Added /settings & /tts commands
@@ -169,8 +172,7 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 ```
 /tts hi
 ```
-**[Mar 14, 2024]** Added new chatGPT 4 provider
-<br>
+**[Mar 14, 2024]** Added new chatGPT 4 provider<br>
 **[Dec 22, 2023]** Added Multiple Providers.<br>
 **[Dec 22, 2023]** Added `/ping` command to ping providers.<br>
 **[Dec 22, 2023]** Removed `/setting` command and setting files for users.<br>
