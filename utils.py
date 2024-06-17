@@ -84,7 +84,7 @@ def create_user_account(user_id: str) -> typing.NoReturn:
     user_path: str = f"Accounts/{user_id}" 
     try:
         # Make folder for user
-        os.mkdir(user_path)
+        os.makedirs(user_path, exist_ok=True)
 
         with open(f"{user_path}/history.json", "w") as file1:
             # Make empty history file
@@ -252,6 +252,9 @@ def chat_function(user_id: int, prompt: str, stream: typing.Optional[bool] = Fal
 
         # Return chat answer
         return chat_result
+
+    except FileNotFoundError:
+        return "No Account Warn"
 
     # Handle errors
     except Exception as error:
