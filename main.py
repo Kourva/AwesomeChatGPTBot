@@ -65,7 +65,6 @@ except Exception as e:
         f"Unexpected Error!\n  {e}"
     )
 
-
 # Command handler for 'start' command
 @GPTbot.message_handler(commands=["start"])
 def start_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -104,25 +103,25 @@ def start_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetu
     
     # Check if /start command pressed with create command.
     elif arg == "create":
-        # Make account for user
-        if not os.path.exists(f"Accounts/{user.id}"):
-            # Make user account and send welcome message to user
+        try:
+            content = os.listdir(f"Accounts/{user.id}")
+            if content == ['providers.json', 'history.json']:
+                GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
+                GPTbot.reply_to(
+                    message=message,
+                    text=titles.welcome_4.format(user.get_name)
+                )
+            else:
+                raise FileNotFoundError
+
+
+        except FileNotFoundError:
             utils.create_user_account(user.id)
             GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
             GPTbot.reply_to(
                 message=message,
                 text=titles.welcome_3.format(user.get_name)
             )
-        
-        # Skip if account is already created
-        else:
-            # Send welcome message to user
-            GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
-            GPTbot.reply_to(
-                message=message,
-                text=titles.welcome_4.format(user.get_name)
-            )
-
 
 # Command handler for 'ping' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["ping"])
@@ -190,7 +189,6 @@ def ping_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
             parse_mode="Markdown"
         )
 
-
 # Command handler for 'ping' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["settings"])
 def settings_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -237,7 +235,6 @@ def settings_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoR
                 reply_markup=Markup
             )
 
-
     # Raise error if user account not found
     except FileNotFoundError:
         GPTbot.send_chat_action(chat_id=message.chat.id, action="typing")
@@ -246,7 +243,6 @@ def settings_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoR
             text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
             disable_web_page_preview=True
         )
-
 
 # Message handler for 'history' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["history"])
@@ -285,7 +281,6 @@ def history_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRe
             disable_web_page_preview=True
         )
         
-
 # Message handler for 'reset' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["reset"])
 def reset_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -322,7 +317,6 @@ def reset_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetu
             text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
             disable_web_page_preview=True
         )
-
 
 # Message handle for 'danmode' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["danmode"])
@@ -384,7 +378,6 @@ def dan_mode_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoR
             disable_web_page_preview=True
         )
 
-
 # Message handler for 'help' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["help"])
 def help_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -404,7 +397,6 @@ def help_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
         text=titles.help_message.format(GPTbot.get_me().username),
         parse_mode="Markdown"
     )
-
 
 # Message handler for 'feature' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["features"])
@@ -427,7 +419,6 @@ def feature_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRe
         parse_mode="Markdown",
         disable_web_page_preview=True
     )
-
 
 # Command handler for 'voice' command
 @GPTbot.message_handler(func=lambda x: x.chat.type == "private", commands=["tts"])
@@ -467,6 +458,15 @@ def tts_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn
         # Fetch results from function
         result: str = chat_function(user.id, user_prompt) or titles.response_error
 
+        if result == "No Account Warn":
+            GPTbot.edit_message_text(
+                chat_id=chat_id,
+                message_id=gpt_prompt.message_id,
+                text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
+                disable_web_page_preview=True
+            )
+            return
+
         # Answer user message
         GPTbot.send_voice(
             chat_id=chat_id,
@@ -484,7 +484,6 @@ def tts_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoReturn
     # Log exception's message on failure
     except Exception as ex:
         print(str(ex))
-
 
 # Message handler for 'chat' command
 @GPTbot.message_handler(commands=["chat"])
@@ -532,6 +531,15 @@ def chat_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
         # Fetch results from function
         result: str = chat_function(user.id, user_prompt) or titles.response_error
 
+        if result == "No Account Warn":
+            GPTbot.edit_message_text(
+                chat_id=chat_id,
+                message_id=gpt_prompt.message_id,
+                text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
+                disable_web_page_preview=True
+            )
+            return
+
         # Answer user message
         GPTbot.edit_message_text(
             chat_id=message.chat.id,
@@ -554,7 +562,6 @@ def chat_command_handler(message: typing.ClassVar[typing.Any]) -> typing.NoRetur
     except Exception as ex:
         print(str(ex))
         
-
 # Inline handler to handle 'roles' inline query
 @GPTbot.inline_handler(lambda query: query.query == "roles")
 def inline_query_text_handler(inline_query: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -597,7 +604,6 @@ def inline_query_text_handler(inline_query: typing.ClassVar[typing.Any]) -> typi
     except Exception as e:
         print(e)
 
-
 # Message handler for text content in all chat types (for text conversation)
 @GPTbot.message_handler(content_types=["text"])
 def handle_messages(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -633,6 +639,15 @@ def handle_messages(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
         # Fetch results from function
         result: str = chat_function(user.id, user_prompt) or titles.response_error
 
+        if result == "No Account Warn":
+            GPTbot.edit_message_text(
+                chat_id=message.chat.id,
+                message_id=gpt_prompt.message_id,
+                text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
+                disable_web_page_preview=True
+            )
+            return
+
         # Answer user message
         GPTbot.edit_message_text(
             chat_id=message.chat.id,
@@ -650,7 +665,6 @@ def handle_messages(message: typing.ClassVar[typing.Any]) -> typing.NoReturn:
             text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
             disable_web_page_preview=True
         )
-
 
 # Callback query handler for re-generating message
 @GPTbot.callback_query_handler(func=lambda call:call.data == "Re-Generate")
@@ -687,6 +701,15 @@ def re_generate_callback_handler(call: typing.ClassVar[typing.Any]) -> typing.No
 
         # Fetch results from function
         result: str = chat_function(user.id, user_prompt) or titles.response_error
+
+        if result == "No Account Warn":
+            GPTbot.edit_message_text(
+                chat_id=chat_id,
+                message_id=message_id,
+                text=titles.no_account_warn.format(user.get_name, GPTbot.get_me().username),
+                disable_web_page_preview=True
+            )
+            return
 
         # Answer user message
         GPTbot.edit_message_text(
@@ -765,7 +788,6 @@ def settings_callback_handler(call: typing.ClassVar[typing.Any]) -> typing.NoRet
         show_alert=True
     )
 
-
 # Callback query handler to close menu
 @GPTbot.callback_query_handler(func=lambda call:call.data == "close_menu")
 def close_menu_callback_handler(call: typing.ClassVar[typing.Any]) -> typing.NoReturn:
@@ -780,7 +802,6 @@ def close_menu_callback_handler(call: typing.ClassVar[typing.Any]) -> typing.NoR
         text="Menu closed. Boom Boom!",
         reply_markup=None
     )
-
 
 # Connect to bot
 if __name__ == "__main__":
