@@ -1,5 +1,5 @@
  <p align="center">
-    <img align='center' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
+    <img align='center' src="https://github.com/kozyol/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
   <p align='center'><b>Free ChatGPT Telegram Bot with Multiple Providers support!</b></p>
   <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</p>
 </p>
@@ -20,7 +20,7 @@ See more logs [here](#full-change-log)
 5. **Multi voice TTS**: Add multiple TTS voices in multiple langugaes
 7. ~~**Voice response**: Use Brian voice as your respone~~ **(DONE)**
 8. ~~**Multiple models**: Use multiple providers~~ **(DONE)**
-9. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
+9. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/kozyol/AwesomeChatGPTBot/issues/30))
 
 <br>
 
@@ -50,7 +50,7 @@ I welcome contributions. If you've found a reliable solution to this issue or ha
 
 # ▋Features
 This bot responds to every message with ChatGPT AI and other models like llama, excluding commands.
-+ Inline mode for obtaining predefined roles. [**How to use**](https://github.com/Kourva/AwesomeChatGPTBot/issues/3#issuecomment-1791705893)
++ Inline mode for obtaining predefined roles. [**How to use**](https://github.com/kozyol/AwesomeChatGPTBot/issues/3#issuecomment-1791705893)
 + The ability to remember chat history.
 + Multiple providers.
 + Voice response.
@@ -61,7 +61,7 @@ This bot responds to every message with ChatGPT AI and other models like llama, 
 # ▋Clone Repository
 To get started, first you need to **clone** this repository from github into your machine:
 ```bash
-git clone https://github.com/Kourva/AwesomeChatGPTBot
+git clone https://github.com/kozyol/AwesomeChatGPTBot
 ```
 > if you dont have git or python you can install it from your package manager!
 
@@ -156,9 +156,9 @@ See documentation here: https://core.telegram.org/bots/api#inline-mode
 If you have any suggestions or feedback, feel free to share. I appreciate your interest and contribution to the project!
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kourva/AwesomeChatGPTBot&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kourva/AwesomeChatGPTBot&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kourva/AwesomeChatGPTBot&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kozyol/AwesomeChatGPTBot&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kozyol/AwesomeChatGPTBot&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kozyol/AwesomeChatGPTBot&type=Date" />
 </picture>
 
 <br>
