@@ -89,7 +89,7 @@ features: str = (
     "3. Image generator\n"
     "5. Multi language\n\n"
     "Please submit your Issue or Request in here:\n"
-    "https://github.com/Kourva/AwesomeChatGPTBot/issues\n\n"
+    "https://github.com/kozyol/AwesomeChatGPTBot/issues\n\n"
     "*Recent changes*:\n"
     "# Added more providers.\n"
     "# Added Uncensored AI."
