@@ -6,7 +6,7 @@
 <br><br>
  
 # ▋Change Log
-[**Last Status: Jun 17, 2024**]: Fixed (FileNotFountError) in providers.json for old users!<br>
+[**Last Status: Jul 18, 2024**]: Added Remix Project Ai!<br>
 See more logs [here](#full-change-log)
 
 
@@ -164,6 +164,7 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
 <br>
 
 # ▋Full Change Log
+**[Jun 18, 2024]** Added Remix Project Ai!<br>
 **[Jun 17, 2024]** Fixed (FileNotFountError) in providers.json for old users!<br>
 **[Jun 05, 2024]** Added Uncensored AI!<br>
 **[Apr 21, 2024]** Added gpt4free client which have no issues operating with Cyrillic/Chinese symbols
