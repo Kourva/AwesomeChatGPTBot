@@ -92,7 +92,7 @@ features: str = (
     "https://github.com/kozyol/AwesomeChatGPTBot/issues\n\n"
     "*Recent changes*:\n"
     "# Added more providers.\n"
-    "# Added Uncensored AI."
+    "# Added Remix AI."
 )
 
 # Usage help for (/chat) command:
