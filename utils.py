@@ -17,8 +17,9 @@ from Providers.fstha import fstha_chat_gpt
 from Providers.onlinegpt import online_gpt_chat
 from Providers.fakeopen import fakeopen_chat
 from Providers.freegpt4 import free_gpt_4
-from Providers.gpt4free_client import gpt_4_free_client
+# from Providers.gpt4free_client import gpt_4_free_client
 from Providers.uncensored import uncensored_ai
+from Providers.remixproject import remix_ai
 
 
 # Telegram bot's token
@@ -31,8 +32,9 @@ except Exception as ex:
 
 # Get providers list
 PROVIDERS: typing.List[typing.Callable] = [
+    remix_ai,           # Model: ChatGPT-3.5-Turbo
     uncensored_ai,      # Model: LLAMA-3-70b
-    gpt_4_free_client,  # Model: ChatGPT-4
+    # gpt_4_free_client,  # Model: ChatGPT-4
     free_gpt_4,         # Model: ChatGPT-4
     deep_infra_chat,    # Model: LLAMA-2-70b-Chat-HF
     fstha_chat_gpt,     # Model: ChatGPT-3.5-Turbo
@@ -98,8 +100,9 @@ def create_user_account(user_id: str) -> typing.NoReturn:
                 "free_gpt_4": True,
                 "fstha_chat_gpt": True,
                 "online_gpt_chat": True,
-                "gpt_4_free_client": True,
-                "uncensored_ai": True
+                # "gpt_4_free_client": True,
+                "uncensored_ai": True,
+                "remix_ai": True
             }, file2, indent=4)
 
     except Exception as ex:
