@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # FreeChatGPT telegram bot
-# Developed by kozyol
-# Source code: https://github.com/kozyol/AwesomeChatGPTBot
+# Developed by Kourva
+# Source code: https://github.com/Kourva/AwesomeChatGPTBot
 
 # Standard library imports
 import json
