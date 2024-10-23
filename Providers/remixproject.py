@@ -47,7 +47,6 @@ def remix_ai(messages: List[Dict[str, str]]) -> Union[str, NoReturn]:
     # Try to send request or return None on failure
     try:
         result = requests.post(url=url, json=data, headers=headers)
-        print(result.json())
         return result.json()['choices'][0]['message']['content']
     except:
         return None
