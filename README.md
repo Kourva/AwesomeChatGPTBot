@@ -4,6 +4,15 @@
   <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</p>
 </p>
 <br><br>
+
+# ▋Status
++ Adding ollama chat client with dynamic models
++ Adding custom i18n helper for multilangual functionality
++ Changing file structures for better and cleaner code
++ Adding .env to handle environment
++ Trying to make streaming response
++ Maybe added more linux specific stuff like `g-tts` or `espeak` for tts
+
  
 # ▋Change Log
 [**Last Status: Jul 18, 2024**]: Added Remix Project Ai!<br>
