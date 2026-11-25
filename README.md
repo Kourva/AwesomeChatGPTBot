@@ -5,6 +5,18 @@
 </p>
 <br><br>
 
+> [!NOTE]
+> Planning to upgrade code-base to python 3.15 and maybe using lightweight TTS like piper instead of the API driven TTS providers<br>
+> Changing the providers as they are not working anymore (with the help of the gpt4free)<br>
+> Adding streaming effects based on the Telegram's new update for bots<br>
+> SQLite database or redis<br>
+> Better environment mangement<br>
+> Cloudflare proxy for restricted countries<br>
+> Async version of the bot<br>
+> AND FIXING/ADDING ALL THE ISSUES USERS ASKED FOR
+
+<br>
+
 # ▋Status
 + Adding ollama chat client with dynamic models
 + Adding custom i18n helper for multilangual functionality
@@ -35,7 +47,7 @@ See more logs [here](#full-change-log)
 
 <br>
 
-# Multiple Providers
+# ▋Multiple Providers
 From now bot includes multiple providers (Thanks for [gpt4free](https://github.com/xtekky/gpt4free)).<br>
 For responding, bot tries all providers one by one to respond and breaks the loop in first valid response. So you don't have to select provider.
 If non of providers worked, bot will tell you to generate your prompt again.<br>
