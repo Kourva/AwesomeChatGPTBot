@@ -12,7 +12,8 @@
 > SQLite database or redis<br>
 > Better environment mangement<br>
 > Cloudflare proxy for restricted countries<br>
-> Async version of the bot
+> Async version of the bot<br>
+> AND FIXING/ADDING ALL THE ISSUES USERS ASKED FOR
 
 <br>
 
