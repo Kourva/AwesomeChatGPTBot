@@ -1,0 +1,124 @@
+{
+  "start": {
+    "welcome": "Merhaba {name} 👋",
+    "welcome_back": "Tekrar hoş geldin, {name} 👋",
+    "admin": "Yönetici",
+    "subtitle": "Sohbet, görsel ve ses için yapay zekâ yardımcın. Aşağıdan bir kısayol seç.",
+    "menu_chat": "💬 Sohbet",
+    "menu_image": "🎨 Görsel",
+    "menu_voice": "🔊 Ses",
+    "menu_settings": "⚙️ Ayarlar",
+    "menu_help": "❓ Yardım",
+    "chat_hint": "Sadece bir mesaj yaz. Komut gerekmiyor.",
+    "image_hint": "/image ayda bir kedi yaz",
+    "voice_hint": "/tts merhaba yaz",
+    "menu_sessions": "🗂 Sohbetler",
+    "menu_history": "🕘 Geçmiş",
+    "menu_language": "🌐 Dil"
+  },
+  "help": {
+    "title": "Kullanılabilir komutlar",
+    "chat": "/chat yapay zekâya mesaj gönder",
+    "ping": "/ping sağlayıcıları kontrol et",
+    "settings": "/settings sağlayıcı seç",
+    "history": "/history sohbet geçmişini indir",
+    "reset": "/reset sohbet geçmişini temizle",
+    "tts": "/tts metni sese çevir",
+    "image": "/image görsel oluştur",
+    "danmode": "/danmode DAN modunu aç veya kapat",
+    "language": "/language bot dilini değiştir",
+    "roles": "Rol seçmek için @{username} roles yaz.",
+    "session": "/session sohbetleri listele, değiştir veya adlandır",
+    "upload": "Bir fotoğraf veya metin dosyasını açıklamayla gönder, inceleyeyim."
+  },
+  "common": {
+    "thinking": "Düşünüyorum...",
+    "working": "Çalışıyorum...",
+    "done": "Tamam.",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "yes": "Evet",
+    "no": "Hayır",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Geri",
+    "page": "Sayfa {page} / {pages}",
+    "regenerate": "Yeniden üret",
+    "admin_only": "Sadece yöneticiler kullanabilir.",
+    "private_only": "Bu komut sadece özel sohbette çalışır."
+  },
+  "errors": {
+    "no_account": "Lütfen önce /start ile botu başlat.",
+    "providers_down": "Hiçbir sağlayıcı yanıt vermedi. Tekrar dene.",
+    "unknown": "Bir şeyler ters gitti, tekrar dene.",
+    "unauthorized": "Bu düğme sana ait değil.",
+    "empty_prompt": "Komutla birlikte bir metin gönder.",
+    "banned": "Bu botu kullanmana izin verilmiyor."
+  },
+  "ping": {
+    "checking": "Sağlayıcılar kontrol ediliyor...",
+    "title": "Sağlayıcı durumu",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı"
+  },
+  "settings": {
+    "title": "Bir sağlayıcıyı açmak veya kapatmak için dokun",
+    "closed": "Menü kapatıldı.",
+    "changed": "{provider} artık {status}",
+    "enabled": "açık",
+    "disabled": "kapalı"
+  },
+  "history": {
+    "empty": "Henüz geçmiş yok.",
+    "cleared": "Sohbet geçmişi temizlendi.",
+    "title": "🕘 Geçmiş",
+    "hint": "Geçmişini indirmek için bir sohbet seç.",
+    "caption": "🗂 {title}\n🆔 Sohbet #{id} · {state}\n💬 {count} mesaj · {you} sen · {ai} yapay zekâ\n📅 Başlangıç {started} UTC\n🕘 Son güncelleme {updated} UTC",
+    "active": "aktif",
+    "inactive": "arşiv",
+    "sent": "Geçmiş gönderildi."
+  },
+  "tts": {
+    "usage": "Sesli yanıt için /tts metnin şeklinde yaz.",
+    "error": "Ses oluşturulamadı."
+  },
+  "image": {
+    "usage": "Görsel oluşturmak için /image istemin şeklinde yaz.",
+    "error": "Görsel oluşturulamadı."
+  },
+  "language": {
+    "title": "Bir dil seç",
+    "usage": "/language en, /language fa, /language ru, /language tr veya /language so kullan.",
+    "changed": "Dil {lang} olarak değiştirildi."
+  },
+  "chat": {
+    "usage": "Gruplarda /chat mesajın şeklinde yaz.",
+    "dan_on": "DAN modu açıldı. Geçmiş temizlendi, şimdi dene.",
+    "dan_off": "DAN modu kapatıldı. Geçmiş temizlendi."
+  },
+  "media": {
+    "tpdne": "Bu kişi gerçek değil",
+    "default_image": "Bu görseli açıkla.",
+    "default_file": "Bu dosyayı kısaca özetle.",
+    "unsupported": "Sadece metin dosyalarını okuyabiliyorum (txt, md, csv, json ve benzerleri).",
+    "no_vision": "Şu anda hiçbir sağlayıcı görsel okuyamıyor. OpenRouter veya DeepInfra anahtarı ekle.",
+    "too_large": "Dosya çok büyük.",
+    "failed": "Dosya indirilemedi veya okunamadı."
+  },
+  "items": {
+    "one": "{count} öğe",
+    "other": "{count} öğe"
+  },
+  "session": {
+    "title": "💬 Sohbetlerin",
+    "hint": "Aktif yapmak için bir sohbete dokun.",
+    "untitled": "Adsız sohbet",
+    "new": "➕ Yeni sohbet",
+    "open": "Sohbetler",
+    "pinned": "📌 Aktif sohbet: {title}",
+    "created": "Başlatıldı: {title}",
+    "switched": "Şuna geçildi: {title}",
+    "renamed": "Sohbet yeniden adlandırıldı: {title}",
+    "usage": "/session, /session new veya /session title <name> kullan."
+  }
+}

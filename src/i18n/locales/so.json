@@ -1,0 +1,124 @@
+{
+  "start": {
+    "welcome": "Salaan {name} 👋",
+    "welcome_back": "Ku soo dhawow, {name} 👋",
+    "admin": "Maamule",
+    "subtitle": "Kaaliyahaaga AI ee sheekaysiga, sawirrada iyo codka. Hoos ka dooro mid.",
+    "menu_chat": "💬 Sheekaysi",
+    "menu_image": "🎨 Sawir",
+    "menu_voice": "🔊 Cod",
+    "menu_settings": "⚙️ Dejinta",
+    "menu_help": "❓ Caawinaad",
+    "chat_hint": "Kaliya fariin soo dir. Amarro loo baahan maaha.",
+    "image_hint": "Isticmaal /image bisad dayaxa saaran",
+    "voice_hint": "Isticmaal /tts salaan",
+    "menu_sessions": "🗂 Sheekooyin",
+    "menu_history": "🕘 Taariikh",
+    "menu_language": "🌐 Luqad"
+  },
+  "help": {
+    "title": "Amarrada la heli karo",
+    "chat": "/chat fariin u dir AI-ga",
+    "ping": "/ping hubi bixiyeyaasha",
+    "settings": "/settings dooro bixiyeyaasha",
+    "history": "/history soo dejiso taariikhda sheekada",
+    "reset": "/reset nadiifi taariikhda sheekada",
+    "tts": "/tts qoraal u beddel cod",
+    "image": "/image samee sawir",
+    "danmode": "/danmode daari ama dami habka DAN",
+    "language": "/language beddel luqadda botka",
+    "roles": "Qor @{username} roles si aad u doorato door.",
+    "session": "/session liis, beddel ama magac u bixi sheekooyinka",
+    "upload": "Sawir ama fayl qoraal ah oo sharraxaad leh soo dir, waan falanqaynayaa."
+  },
+  "common": {
+    "thinking": "Waan fekerayaa...",
+    "working": "Waan shaqaynayaa...",
+    "done": "La dhammeeyay.",
+    "cancel": "Jooji",
+    "close": "Xir",
+    "yes": "Haa",
+    "no": "Maya",
+    "back": "Dib",
+    "next": "Xiga",
+    "previous": "Hore",
+    "page": "Bogga {page} ee {pages}",
+    "regenerate": "Dib u samee",
+    "admin_only": "Kaliya maamulayaasha ayaa isticmaali kara.",
+    "private_only": "Amarradani waxay kaliya ka shaqeeyaan sheekada gaarka ah."
+  },
+  "errors": {
+    "no_account": "Fadlan marka hore botka ku bilow /start.",
+    "providers_down": "Ma jiro bixiye jawaabay. Mar kale isku day.",
+    "unknown": "Wax baa qaldan, mar kale isku day.",
+    "unauthorized": "Badhankan adiga laguma talagalin.",
+    "empty_prompt": "Fariin la socota amarka soo dir.",
+    "banned": "Looma ogola inaad botkan isticmaasho."
+  },
+  "ping": {
+    "checking": "Bixiyeyaasha waa la hubinayaa...",
+    "title": "Xaaladda bixiyeyaasha",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "settings": {
+    "title": "Taabo bixiye si aad u daarto ama u damiso",
+    "closed": "Menu-ga waa la xiray.",
+    "changed": "{provider} hadda waa {status}",
+    "enabled": "daaran",
+    "disabled": "daman"
+  },
+  "history": {
+    "empty": "Weli taariikh ma jirto.",
+    "cleared": "Taariikhda sheekada waa la nadiifiyay.",
+    "title": "🕘 Taariikh",
+    "hint": "Dooro sheeko si aad u soo dejiso taariikhdeeda.",
+    "caption": "🗂 {title}\n🆔 Sheeko #{id} · {state}\n💬 {count} fariin · {you} adiga · {ai} AI\n📅 Bilow {started} UTC\n🕘 Cusboonaysiin {updated} UTC",
+    "active": "firfircoon",
+    "inactive": "keyd",
+    "sent": "Taariikhda waa la diray."
+  },
+  "tts": {
+    "usage": "Qor /tts qoraalkaaga si aad u hesho jawaab cod ah.",
+    "error": "Codka lama abuuri karin."
+  },
+  "image": {
+    "usage": "Qor /image qoraalkaaga si aad u sameyso sawir.",
+    "error": "Sawirka lama samayn karin."
+  },
+  "language": {
+    "title": "Dooro luqad",
+    "usage": "Isticmaal /language en, /language fa, /language ru, /language tr ama /language so.",
+    "changed": "Luqadda waxaa loo beddelay {lang}."
+  },
+  "chat": {
+    "usage": "Kooxaha dhexdooda qor /chat fariintaada.",
+    "dan_on": "Habka DAN waa daaran yahay. Taariikhda waa la nadiifiyay, hadda isku day.",
+    "dan_off": "Habka DAN waa daman yahay. Taariikhda waa la nadiifiyay."
+  },
+  "media": {
+    "tpdne": "Qofkani ma jiro",
+    "default_image": "Sharax sawirkan.",
+    "default_file": "Si kooban u soo koob faylkan.",
+    "unsupported": "Waxaan akhriyi karaa kaliya faylal qoraal ah (txt, md, csv, json iyo kuwa la mid ah).",
+    "no_vision": "Hadda ma jiro bixiye akhrin kara sawirrada. Ku dar fure OpenRouter ama DeepInfra.",
+    "too_large": "Faylku aad buu u weyn yahay.",
+    "failed": "Faylka lama soo dejisan karin ama lama akhrin karin."
+  },
+  "items": {
+    "one": "{count} shay",
+    "other": "{count} shay"
+  },
+  "session": {
+    "title": "💬 Sheekooyinkaaga",
+    "hint": "Taabo sheeko si aad uga dhigto mid firfircoon.",
+    "untitled": "Sheeko aan magac lahayn",
+    "new": "➕ Sheeko cusub",
+    "open": "Sheekooyin",
+    "pinned": "📌 Sheekada firfircoon: {title}",
+    "created": "La bilaabay: {title}",
+    "switched": "Loo beddelay: {title}",
+    "renamed": "Sheekada magaceeda waxaa loo beddelay: {title}",
+    "usage": "Isticmaal /session, /session new ama /session title <name>."
+  }
+}

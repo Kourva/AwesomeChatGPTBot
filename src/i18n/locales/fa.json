@@ -1,0 +1,124 @@
+{
+  "start": {
+    "welcome": "سلام {name} 👋",
+    "welcome_back": "خوش برگشتی، {name} 👋",
+    "admin": "مدیر",
+    "subtitle": "همراه هوش مصنوعی تو برای چت، تصویر و صدا. یک گزینه را انتخاب کن.",
+    "menu_chat": "💬 چت",
+    "menu_image": "🎨 تصویر",
+    "menu_voice": "🔊 صدا",
+    "menu_settings": "⚙️ تنظیمات",
+    "menu_help": "❓ راهنما",
+    "chat_hint": "فقط یک پیام بفرست. نیازی به دستور نیست.",
+    "image_hint": "از /image یک گربه روی ماه استفاده کن",
+    "voice_hint": "از /tts سلام استفاده کن",
+    "menu_sessions": "🗂 چت‌ها",
+    "menu_history": "🕘 تاریخچه",
+    "menu_language": "🌐 زبان"
+  },
+  "help": {
+    "title": "دستورهای موجود",
+    "chat": "/chat ارسال پیام به هوش مصنوعی",
+    "ping": "/ping بررسی وضعیت سرویس‌ها",
+    "settings": "/settings انتخاب سرویس‌ها",
+    "history": "/history دریافت تاریخچه چت",
+    "reset": "/reset پاک کردن تاریخچه",
+    "tts": "/tts متن به صدا",
+    "image": "/image ساخت تصویر",
+    "danmode": "/danmode روشن یا خاموش کردن حالت DAN",
+    "language": "/language تغییر زبان ربات",
+    "roles": "برای انتخاب نقش بنویسید @{username} roles.",
+    "session": "/session لیست، تغییر یا نام‌گذاری چت‌ها",
+    "upload": "یک عکس یا فایل متنی با کپشن بفرست تا تحلیلش کنم."
+  },
+  "common": {
+    "thinking": "در حال فکر کردن...",
+    "working": "در حال انجام...",
+    "done": "انجام شد.",
+    "cancel": "لغو",
+    "close": "بستن",
+    "yes": "بله",
+    "no": "خیر",
+    "back": "بازگشت",
+    "next": "بعدی",
+    "previous": "قبلی",
+    "page": "صفحه {page} از {pages}",
+    "regenerate": "تولید دوباره",
+    "admin_only": "فقط مدیر می‌تواند از این دستور استفاده کند.",
+    "private_only": "این دستور فقط در چت خصوصی کار می‌کند."
+  },
+  "errors": {
+    "no_account": "اول با /start ربات را شروع کنید.",
+    "providers_down": "هیچ سرویسی پاسخ نداد، دوباره تلاش کنید.",
+    "unknown": "خطایی رخ داد، دوباره تلاش کنید.",
+    "unauthorized": "این دکمه برای شما نیست.",
+    "empty_prompt": "متن را همراه دستور بفرستید.",
+    "banned": "شما اجازه استفاده از این ربات را ندارید."
+  },
+  "ping": {
+    "checking": "در حال بررسی سرویس‌ها...",
+    "title": "وضعیت سرویس‌ها",
+    "online": "فعال",
+    "offline": "غیرفعال"
+  },
+  "settings": {
+    "title": "برای روشن یا خاموش کردن روی سرویس بزنید",
+    "closed": "منو بسته شد.",
+    "changed": "{provider} اکنون {status} است",
+    "enabled": "فعال",
+    "disabled": "غیرفعال"
+  },
+  "history": {
+    "empty": "تاریخچه‌ای وجود ندارد.",
+    "cleared": "تاریخچه چت پاک شد.",
+    "title": "🕘 تاریخچه",
+    "hint": "یک چت را برای دریافت تاریخچه انتخاب کن.",
+    "caption": "🗂 {title}\n🆔 چت #{id} · {state}\n💬 {count} پیام · {you} از تو · {ai} از هوش مصنوعی\n📅 شروع {started} UTC\n🕘 آخرین تغییر {updated} UTC",
+    "active": "فعال",
+    "inactive": "غیرفعال",
+    "sent": "تاریخچه ارسال شد."
+  },
+  "tts": {
+    "usage": "برای پاسخ صوتی بنویسید /tts متن شما.",
+    "error": "ساخت صدا ممکن نشد."
+  },
+  "image": {
+    "usage": "برای ساخت تصویر بنویسید /image توضیح شما.",
+    "error": "ساخت تصویر ممکن نشد."
+  },
+  "language": {
+    "title": "یک زبان انتخاب کنید",
+    "usage": "از /language en، fa، ru، tr یا so استفاده کنید.",
+    "changed": "زبان به {lang} تغییر کرد."
+  },
+  "chat": {
+    "usage": "در گروه‌ها بنویسید /chat پیام شما.",
+    "dan_on": "حالت DAN روشن شد. تاریخچه پاک شد، حالا امتحان کنید.",
+    "dan_off": "حالت DAN خاموش شد. تاریخچه پاک شد."
+  },
+  "media": {
+    "tpdne": "این شخص وجود ندارد",
+    "default_image": "این تصویر را توضیح بده.",
+    "default_file": "این فایل را خلاصه کن.",
+    "unsupported": "من فقط فایل‌های متنی را می‌خوانم (txt، md، csv، json و مشابه).",
+    "no_vision": "هیچ سرویسی فعلاً تصویر را نمی‌خواند. کلید OpenRouter یا DeepInfra اضافه کن.",
+    "too_large": "فایل خیلی بزرگ است.",
+    "failed": "دریافت یا خواندن فایل ممکن نشد."
+  },
+  "items": {
+    "one": "{count} مورد",
+    "other": "{count} مورد"
+  },
+  "session": {
+    "title": "💬 چت‌های تو",
+    "hint": "برای فعال کردن یک چت روی آن بزن.",
+    "untitled": "چت بدون نام",
+    "new": "➕ چت جدید",
+    "open": "چت‌ها",
+    "pinned": "📌 چت فعال: {title}",
+    "created": "شروع شد: {title}",
+    "switched": "تغییر کرد به: {title}",
+    "renamed": "نام چت تغییر کرد به: {title}",
+    "usage": "از /session، /session new یا /session title <name> استفاده کن."
+  }
+}

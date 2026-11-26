@@ -1,0 +1,124 @@
+{
+  "start": {
+    "welcome": "Hey {name} 👋",
+    "welcome_back": "Welcome back, {name} 👋",
+    "admin": "Admin",
+    "subtitle": "Your AI sidekick for chat, images and voice. Pick a shortcut below.",
+    "menu_chat": "💬 Chat",
+    "menu_image": "🎨 Image",
+    "menu_voice": "🔊 Voice",
+    "menu_settings": "⚙️ Settings",
+    "menu_help": "❓ Help",
+    "chat_hint": "Just send me a message. No command needed.",
+    "image_hint": "Use /image a cat on the moon",
+    "voice_hint": "Use /tts hello there",
+    "menu_sessions": "🗂 Chats",
+    "menu_history": "🕘 History",
+    "menu_language": "🌐 Language"
+  },
+  "help": {
+    "title": "Available commands",
+    "chat": "/chat send a message to the AI",
+    "ping": "/ping check providers",
+    "settings": "/settings choose providers",
+    "history": "/history export your chat history",
+    "reset": "/reset clear your chat history",
+    "tts": "/tts text and voice",
+    "image": "/image generate an image",
+    "danmode": "/danmode toggle DAN mode",
+    "language": "/language change the bot language",
+    "roles": "Type @{username} roles to pick a role inline.",
+    "session": "/session list, switch or name your chats",
+    "upload": "Send a photo or a text file with a caption and I will analyze it."
+  },
+  "common": {
+    "thinking": "Thinking...",
+    "working": "Working...",
+    "done": "Done.",
+    "cancel": "Cancel",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "page": "Page {page} of {pages}",
+    "regenerate": "Re-generate",
+    "admin_only": "Only admins can use this.",
+    "private_only": "This command works in private chat only."
+  },
+  "errors": {
+    "no_account": "Please start the bot first with /start.",
+    "providers_down": "None of the providers worked. Try again.",
+    "unknown": "Something went wrong, try again.",
+    "unauthorized": "This button is not for you.",
+    "empty_prompt": "Send a message with the command.",
+    "banned": "You are not allowed to use this bot."
+  },
+  "ping": {
+    "checking": "Checking providers, wait...",
+    "title": "Provider status",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "settings": {
+    "title": "Tap a provider to enable or disable it",
+    "closed": "Menu closed.",
+    "changed": "{provider} is now {status}",
+    "enabled": "enabled",
+    "disabled": "disabled"
+  },
+  "history": {
+    "empty": "No history yet.",
+    "cleared": "Chat history cleared.",
+    "title": "🕘 History",
+    "hint": "Pick a chat to download its history.",
+    "caption": "🗂 {title}\n🆔 Chat #{id} · {state}\n💬 {count} messages · {you} you · {ai} AI\n📅 Started {started} UTC\n🕘 Last update {updated} UTC",
+    "active": "active",
+    "inactive": "archived",
+    "sent": "History sent."
+  },
+  "tts": {
+    "usage": "Use /tts your text to get a voice answer.",
+    "error": "Could not generate the voice."
+  },
+  "image": {
+    "usage": "Use /image your prompt to generate an image.",
+    "error": "Could not generate the image."
+  },
+  "language": {
+    "title": "Choose a language",
+    "usage": "Use /language en, fa, ru, tr or so.",
+    "changed": "Language changed to {lang}."
+  },
+  "chat": {
+    "usage": "Use /chat your message in groups.",
+    "dan_on": "DAN mode enabled. History cleared, try it now.",
+    "dan_off": "DAN mode disabled. History cleared."
+  },
+  "media": {
+    "tpdne": "This person does not exist",
+    "default_image": "Describe this image.",
+    "default_file": "Summarize this file.",
+    "unsupported": "I can read text files only (txt, md, csv, json and similar).",
+    "no_vision": "No provider here can read images yet. Add an OpenRouter or DeepInfra key.",
+    "too_large": "That file is too large.",
+    "failed": "Could not download or read that file."
+  },
+  "items": {
+    "one": "{count} item",
+    "other": "{count} items"
+  },
+  "session": {
+    "title": "💬 Your chats",
+    "hint": "Tap a chat to make it active.",
+    "untitled": "Untitled chat",
+    "new": "➕ New chat",
+    "open": "Chats",
+    "pinned": "📌 Active chat: {title}",
+    "created": "Started: {title}",
+    "switched": "Switched to: {title}",
+    "renamed": "Chat renamed to: {title}",
+    "usage": "Use /session, /session new, or /session title <name>."
+  }
+}

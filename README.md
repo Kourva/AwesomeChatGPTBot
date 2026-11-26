@@ -1,64 +1,29 @@
- <p align="center">
-    <img align='center' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200/>
-  <p align='center'><b>Free ChatGPT Telegram Bot with Multiple Providers support!</b></p>
-  <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode v10</p>
-</p>
+<div align="center">
+    <img align='center' src="https://github.com/Kourva/AwesomeChatGPTBot/assets/118578799/ef1cfefd-1e58-45d3-8a3a-fa9988a8322e" width=200 height=200 />
+    <p align='center'><b>Free ChatGPT Telegram Bot with Multiple Providers support!</b></p>
+    <p align='center'>No APi-Key | Pre-Defiened Roles | Inline mode | Dan Mode</p>
+</div>
 <br><br>
 
-> [!NOTE]
-> Planning to upgrade code-base to python 3.15 and maybe using lightweight TTS like piper instead of the API driven TTS providers<br>
-> Changing the providers as they are not working anymore (with the help of the gpt4free)<br>
-> Adding streaming effects based on the Telegram's new update for bots<br>
-> SQLite database or redis<br>
-> Better environment mangement<br>
-> Cloudflare proxy for restricted countries<br>
-> Async version of the bot<br>
-> AND FIXING/ADDING ALL THE ISSUES USERS ASKED FOR
+# ＃ Status
+New version is here with new codebase and features: <br>
++ python 3.15 and cleaner source + ruff <br>
++ async version <br>
++ multiple chat sessions <br>
++ new sqlite database instead of raw json database <br>
++ new streaming feature for the response <br>
++ history now supports multiple sessions <br>
++ new support for the CloudFlare proxy for restricted countries: [worker](https://github.com/Kourva/cloudflare-workers/#-tba)<br>
++ new working providers: [issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/101) <br>
++ new TTS provider with defaults to google [issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/98) <br>
++ analyzing a larger text file as file/image input: [issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/94) <br>
++ auto updater for systemd, OpenRC or runit: [issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/66) <br>
++ i18n for multiple language support: [issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30)
 
 <br>
 
-# ▋Status
-+ Adding ollama chat client with dynamic models
-+ Adding custom i18n helper for multilangual functionality
-+ Changing file structures for better and cleaner code
-+ Adding .env to handle environment
-+ Trying to make streaming response
-+ Maybe added more linux specific stuff like `g-tts` or `espeak` for tts
-
-<br>
-
- 
-# ▋Change Log
-[**Last Status: Jul 18, 2024**]: Added Remix Project Ai!<br>
-See more logs [here](#full-change-log)
-
-
-<br>
-
-# ▋Upcoming Features
-1. **Smart reply**: Reply to user's message to process them with GPT.
-2. **Code generator**: Use code generator to generate functions in many languages.
-3. **Image generator**: Use AI to generate images from prompt.
-4. **similar question**: Generate similar questions beside **Re-Generate** button
-5. **Multi voice TTS**: Add multiple TTS voices in multiple langugaes
-7. ~~**Voice response**: Use Brian voice as your respone~~ **(DONE)**
-8. ~~**Multiple models**: Use multiple providers~~ **(DONE)**
-9. **Multiple language**: Bot supports multiple languages for better communication. (Idea by [chelaxian](https://github.com/chelaxian) | [Issue](https://github.com/Kourva/AwesomeChatGPTBot/issues/30))
-
-<br>
-
-# ▋Multiple Providers
-From now bot includes multiple providers (Thanks for [gpt4free](https://github.com/xtekky/gpt4free)).<br>
-For responding, bot tries all providers one by one to respond and breaks the loop in first valid response. So you don't have to select provider.
-If non of providers worked, bot will tell you to generate your prompt again.<br>
-**List of available providers**:
-+ **FakeOpen Ai** (uses model ChatGPT 3.5 Turbo)
-+ **Fstha Chat** (uses model ChatGPT 3.5 Turbo)
-+ **DeepInfra AI** (uses model Llama 2 70b Chat hf)
-+ **Online GPT** (uses model ChatGPT 3.5 Turbo)
-+ **Free GPT 4** (uses ChatGPT 4)
-+ **GPT 4 Free** (uses ChatGPT 4) [gpt4free](https://github.com/xtekky/gpt4free)
-+ **Uncensored AI**: (uses Llama 3 70b)
+# ＃ Providers
+Bot includes multiple free providers (Thanks to [gpt4free](https://github.com/xtekky/gpt4free)). it tries all providers one by one to respond and breaks the loop in first valid response. So you don't have to select provider and if non of the providers worked, bot will tell you to generate your prompt again.<br>
 You can send `/settings` command to bot to change these providers (Enable/Disable)
 
 <br>
@@ -183,40 +148,3 @@ If you have any suggestions or feedback, feel free to share. I appreciate your i
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Kourva/AwesomeChatGPTBot&type=Date" />
     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Kourva/AwesomeChatGPTBot&type=Date" />
 </picture>
-
-<br>
-
-# ▋Full Change Log
-**[Jun 18, 2024]** Added Remix Project Ai!<br>
-**[Jun 17, 2024]** Fixed (FileNotFountError) in providers.json for old users!<br>
-**[Jun 05, 2024]** Added Uncensored AI!<br>
-**[Apr 21, 2024]** Added gpt4free client which have no issues operating with Cyrillic/Chinese symbols
-**[Mar 14, 2024]** Added /settings & /tts commands
-**[Mar 14, 2024]** Added voice response
-```
-/tts hi
-```
-**[Mar 14, 2024]** Added new chatGPT 4 provider<br>
-**[Dec 22, 2023]** Added Multiple Providers.<br>
-**[Dec 22, 2023]** Added `/ping` command to ping providers.<br>
-**[Dec 22, 2023]** Removed `/setting` command and setting files for users.<br>
-**[Dec 22, 2023]** Added more exception handlers for both Connection and Telegram API.<br>
-**[Dec 01, 2023] Smarter Re-generate:** Uses smarter way to re-generate replied question.<br>
-**[Dec 01, 2023] Settings command:** Added setting command to change bot response setting.<br>
-**[Dec 01, 2023] Added titles.py:** To make main code more clear.<br>
-**[Dec 01, 2023] Error handling:** Added more handlers and depp link handlers.<br> 
-**[Nov 13, 2023] PEP8 fixes:** Fixed some PEP8 issues.<br>
-**[Nov 13, 2023] Extra commands:** Added `help`, `features` and `chat` commands.<br>
-**[Nov 13, 2023] MarkdownV2:** Added converter to convert regular markdown to Markdown V2.<br>
-**[Nov 13, 2023] History management**: Added utilities to check history and fix it when it got broken.<br>
-**[Nov 13, 2023] Re-Generate**: Users can re-generate their prompts, new answer will be raplaced with old one<br>
-**[Nov 13, 2023] Improved chat handler**: Users now requied to use /chat in groups to chat with bot.<bt>
-```
-/chat hi
-```
-> This will avoid mess in replies and even reactions to bot's responses.
-
-**[Nov 01, 2023] History command:** Added history section added (use /history to get history file)<br>
-**[Nov 01, 2023] History reset:** Added /reset command to reset the chat history.<br>
-**[Nov 01, 2023] Dan mode v10:** Added /danmode** command to enable/disable DAN mode v10.0 in bot.<br>
-> Note: History will reset when using /danmode command!!
