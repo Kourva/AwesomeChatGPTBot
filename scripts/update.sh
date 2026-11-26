@@ -4,12 +4,12 @@
 set -euo pipefail
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-if [[ -r /etc/default/kowshan-bot ]]; then
-    . /etc/default/kowshan-bot
+if [[ -r /etc/default/acgptb-bot ]]; then
+    . /etc/default/acgptb-bot
 fi
 
 APP_DIR="${APP_DIR:-$(pwd)}"
-SERVICE_NAME="${SERVICE_NAME:-kowshan-bot}"
+SERVICE_NAME="${SERVICE_NAME:-acgptb-bot}"
 BRANCH="${BRANCH:-main}"
 REPO_URL="${REPO_URL:-https://github.com/Kourva/AwesomeChatGPTBot.git}"
 VENV="$APP_DIR/.venv"

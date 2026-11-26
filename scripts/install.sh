@@ -4,7 +4,7 @@
 set -euo pipefail
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SERVICE="${SERVICE_NAME:-kowshan-bot}"
+SERVICE="${SERVICE_NAME:-acgptb-bot}"
 RUN_USER="${SUDO_USER:-$(id -un)}"
 PYTHON="${PYTHON:-python3}"
 CONF="/etc/default/$SERVICE"

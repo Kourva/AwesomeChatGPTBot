@@ -32,7 +32,7 @@
     "upload": "Send a photo or a text file with a caption and I will analyze it."
   },
   "common": {
-    "thinking": "Thinking...",
+    "thinking": "Thinking",
     "working": "Working...",
     "done": "Done.",
     "cancel": "Cancel",
